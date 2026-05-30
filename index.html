@@ -1298,14 +1298,7 @@
      ================================================================ -->
 <main id="invitation">
 
-  <!-- =====================================================
-       BACKGROUND MUSIC
-       HOW TO SET UP:
-       1. Download your chosen song as an MP3
-       2. Create a folder called  audio/  in your GitHub repo
-       3. Upload the MP3 as  audio/wedding-music.mp3
-       4. That's it — no other changes needed.
-       ===================================================== -->
+  <!-- hidden background audio — plays on envelope tap -->
   <audio id="bg-audio" loop preload="auto">
     <source src="wedding-music.mp3" type="audio/mpeg">
   </audio>
@@ -1751,11 +1744,10 @@
   }());
 
   /* ============================================================
-     MUSIC — clean HTML5 Audio, no AudioContext
-     audio.load() starts downloading the file immediately on page
-     load so it is ready when the user taps the envelope.
-     audio.play() called synchronously inside the tap handler
-     satisfies every browser's autoplay policy.
+     MUSIC
+     audio.play() is called SYNCHRONOUSLY inside openEnvelope()
+     which runs directly from the user's tap — this satisfies
+     every browser's autoplay policy, exactly how jemput.la works.
      ============================================================ */
   const audio    = document.getElementById('bg-audio');
   const musicBtn = document.getElementById('music-btn');
@@ -1763,7 +1755,7 @@
   let   toastTimer;
 
   audio.volume = 0.8;
-  audio.load();                       /* start fetching the file now */
+  audio.load();
 
   function setMusicUI(playing) {
     document.getElementById('icon-note').style.display  = playing ? 'none'  : 'block';
@@ -1775,34 +1767,18 @@
     toast.textContent = msg;
     toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
   }
 
   function startMusic() {
-    audio.volume = 0.8;
-    audio.muted  = false;
-    const p = audio.play();
-    if (p !== undefined) {
-      p.then(() => {
-        setMusicUI(true);
-        showToast('♪  Sedang dimainkan…');
-      }).catch(() => {
-        /* Browser blocked — pulse the ♪ button so guest notices it */
-        showToast('♪  Tekan butang muzik di bawah kanan');
-        let n = 0;
-        const pulse = setInterval(() => {
-          musicBtn.style.transform = n % 2 === 0 ? 'scale(1.3)' : 'scale(1)';
-          if (++n > 5) { clearInterval(pulse); musicBtn.style.transform = ''; }
-        }, 300);
-      });
-    }
+    audio.play()
+      .then(() => { setMusicUI(true); showToast('♪  Sedang dimainkan…'); })
+      .catch(() => { showToast('Tekan ♪ untuk mainkan muzik'); });
   }
 
   function toggleMusic() {
     if (audio.paused) {
-      audio.play()
-        .then(() => { setMusicUI(true);  showToast('♪  Sedang dimainkan…'); })
-        .catch(() => {});
+      audio.play().then(() => { setMusicUI(true);  showToast('♪  Sedang dimainkan…'); }).catch(() => {});
     } else {
       audio.pause();
       setMusicUI(false);
