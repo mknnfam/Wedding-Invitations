@@ -334,6 +334,11 @@
       100% { transform: scale(1.4); opacity: 0; }
     }
 
+    @keyframes attention-pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.25); box-shadow: 0 0 0 8px rgba(200,160,85,0.3); }
+    }
+
     /* Music toast — shows filename / status */
     #music-toast {
       position: fixed;
@@ -1283,6 +1288,7 @@
     </div>
 
     <p class="open-hint">✦ &nbsp; Ketuk untuk membuka jemputan anda &nbsp; ✦</p>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; letter-spacing:0.18em; color:rgba(200,160,85,0.4); text-align:center; margin-top:-0.8rem;">♪ &nbsp; Muzik akan bermula secara automatik</p>
 
   </div>
 </div>
@@ -1745,16 +1751,19 @@
   }());
 
   /* ============================================================
-     MUSIC — HTML5 Audio
-     The audio element is in the DOM already (<audio id="bg-audio">).
-     Calling .play() synchronously inside a user gesture (the envelope
-     tap) satisfies browser autoplay policies on Android and desktop.
-     iOS Safari allows it too because it is a direct tap handler.
+     MUSIC — clean HTML5 Audio, no AudioContext
+     audio.load() starts downloading the file immediately on page
+     load so it is ready when the user taps the envelope.
+     audio.play() called synchronously inside the tap handler
+     satisfies every browser's autoplay policy.
      ============================================================ */
-  const audio      = document.getElementById('bg-audio');
-  const musicBtn   = document.getElementById('music-btn');
-  const toast      = document.getElementById('music-toast');
-  let   toastTimer = null;
+  const audio    = document.getElementById('bg-audio');
+  const musicBtn = document.getElementById('music-btn');
+  const toast    = document.getElementById('music-toast');
+  let   toastTimer;
+
+  audio.volume = 0.8;
+  audio.load();                       /* start fetching the file now */
 
   function setMusicUI(playing) {
     document.getElementById('icon-note').style.display  = playing ? 'none'  : 'block';
@@ -1766,27 +1775,34 @@
     toast.textContent = msg;
     toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
   }
 
   function startMusic() {
-    /* .play() returns a Promise — catch rejection silently so the
-       page never crashes even if the browser still blocks it. */
-    audio.play()
-      .then(() => {
+    audio.volume = 0.8;
+    audio.muted  = false;
+    const p = audio.play();
+    if (p !== undefined) {
+      p.then(() => {
         setMusicUI(true);
         showToast('♪  Sedang dimainkan…');
-      })
-      .catch(() => {
-        /* Playback blocked (very rare when called from a tap).
-           Show toast prompting manual tap on the music button. */
-        showToast('Tekan ♪ untuk mainkan muzik');
+      }).catch(() => {
+        /* Browser blocked — pulse the ♪ button so guest notices it */
+        showToast('♪  Tekan butang muzik di bawah kanan');
+        let n = 0;
+        const pulse = setInterval(() => {
+          musicBtn.style.transform = n % 2 === 0 ? 'scale(1.3)' : 'scale(1)';
+          if (++n > 5) { clearInterval(pulse); musicBtn.style.transform = ''; }
+        }, 300);
       });
+    }
   }
 
   function toggleMusic() {
     if (audio.paused) {
-      audio.play().then(() => { setMusicUI(true);  showToast('♪  Sedang dimainkan…'); }).catch(() => {});
+      audio.play()
+        .then(() => { setMusicUI(true);  showToast('♪  Sedang dimainkan…'); })
+        .catch(() => {});
     } else {
       audio.pause();
       setMusicUI(false);
