@@ -1664,6 +1664,7 @@
     <p class="footer-line">Mustafa Khan Bin Nawaz Khan &nbsp;·&nbsp; Nurin Natasha Binti Muhamad Nasir</p>
     <p class="footer-line">Majlis Nikah · Jumaat, 7 Ogos 2026</p>
     <p class="footer-line">Masjid Sultan Hisamuddin Alam Shah · Hulu Langat, Selangor</p>
+    <p class="footer-line" style="opacity:0.35; font-size:0.7rem; margin-top:1rem;">v4 · muzik</p>
   </footer>
 
 </main><!-- end #invitation -->
@@ -1773,7 +1774,18 @@
   function startMusic() {
     audio.play()
       .then(() => { setMusicUI(true); showToast('♪  Sedang dimainkan…'); })
-      .catch(() => { showToast('Tekan ♪ untuk mainkan muzik'); });
+      .catch(() => {
+        /* Safety net: if the first attempt is ever blocked, start the
+           music on the very next tap anywhere on the page. */
+        showToast('Tekan ♪ untuk mainkan muzik');
+        const retry = () => {
+          audio.play().then(() => { setMusicUI(true); }).catch(() => {});
+          document.removeEventListener('click', retry);
+          document.removeEventListener('touchstart', retry);
+        };
+        document.addEventListener('click', retry, { once: true });
+        document.addEventListener('touchstart', retry, { once: true });
+      });
   }
 
   function toggleMusic() {
