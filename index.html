@@ -196,12 +196,12 @@
       transform: rotateX(-180deg);
     }
 
-    /* Wax seal */
+    /* Wax seal — positioned in upper flap area, clear of the letter */
     .wax-seal {
       position: absolute;
-      top: 36%; left: 50%;
+      top: 18%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 52px; height: 52px;
+      width: 48px; height: 48px;
       background: radial-gradient(circle at 38% 33%, #9B1E1E, #5C0E0E);
       border-radius: 50%;
       z-index: 4;
@@ -226,8 +226,8 @@
     /* The letter that slides up from inside */
     .env-letter {
       position: absolute;
-      bottom: 8%; left: 7%; right: 7%;
-      height: 72%;
+      bottom: 6%; left: 7%; right: 7%;
+      height: 56%;
       background: linear-gradient(160deg, #FFFDF6, #FFF8E4);
       border-radius: 2px;
       z-index: 2;
@@ -239,7 +239,7 @@
       justify-content: center;
       gap: 5px;
       box-shadow: 0 -5px 20px rgba(0,0,0,0.14);
-      padding: 10px;
+      padding: 10px 14px;
     }
 
     .envelope-wrap.opening .env-letter {
@@ -254,9 +254,11 @@
 
     .env-letter .mono {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.8rem, 3vw, 1.05rem);
+      font-size: 0.82rem;
       color: var(--gold-dark);
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
+      text-align: center;
+      line-height: 1.5;
     }
 
     .env-letter .date-line {
@@ -1273,7 +1275,7 @@
         <div class="wax-seal"></div>
         <div class="env-letter">
           <div class="line"></div>
-          <div class="mono">Mustafa Khan &amp; Nurin Natasha</div>
+          <div class="mono">Mustafa Khan<br>&amp;<br>Nurin Natasha</div>
           <div class="line"></div>
           <div class="date-line">7 · 8 · 2026</div>
         </div>
@@ -1683,8 +1685,8 @@
        5. Project Settings → API → copy URL and anon key below
   */
   const CONFIG = {
-    SUPABASE_URL:      'https://XXXXXXXXXXXXXXXXXX.supabase.co',
-    SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY_HERE',
+    SUPABASE_URL:      'https://zywstboojibjmhfvrxri.supabase.co',
+    SUPABASE_ANON_KEY: 'sb_publishable_BOe_G5he4FwcaslyNbavJQ_JLc0fTKM',
     TABLE:             'rsvp_nikah',
     EVENT_DATE:        new Date('2026-08-07T09:00:00+08:00'),
   };
