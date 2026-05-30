@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#3D0A14">
+  <meta property="og:title" content="Jemputan Majlis Nikah — Mustafa Khan & Nurin Natasha">
+  <meta property="og:description" content="7 Ogos 2026 · Masjid Sultan Hisamuddin Alam Shah">
+  <title>Majlis Nikah — Mustafa Khan & Nurin Natasha · 7 Ogos 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Amiri:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       UPDATE THESE IN THE <script> BLOCK BELOW:
+       CONFIG.SUPABASE_URL      = 'https://XXXXXXXXXX.supabase.co'
+       CONFIG.SUPABASE_ANON_KEY = 'your-anon-key'
+       CONFIG.YT_VIDEO_ID       = 'youtube-video-id'
+       GROOM_NAME / BRIDE_NAME  = actual names (search for placeholder text)
+       ================================================================ */
+
+    /* ---- RESET ---- */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold:           #C8A055;
+      --gold-light:     #E8C97A;
+      --gold-dark:      #8B6914;
+      --champagne:      #F2DDB8;
+      --baby-yellow:    #FFF9D0;
+      --cream:          #FFFDF5;
+      --ivory:          #FAF6ED;
+      --dark-bg:        #0E0307;
+      --forest:         #3D0A14;
+      --forest-mid:     #5C1220;
+      --text-dark:      #2C1A08;
+      --text-mid:       #5A3A1A;
+      --gold-border:    rgba(200,160,85,0.28);
+      --section-gap:    5rem;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ================================================================
+       ENVELOPE SCREEN
+       ================================================================ */
+    #envelope-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--dark-bg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.9s ease, visibility 0.9s ease;
+      overflow: hidden;
+    }
+
+    #envelope-screen.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Islamic tessellation overlay */
+    #envelope-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A05520' stroke-width='0.6'%3E%3Cpolygon points='50,6 59,28 83,28 65,44 72,68 50,55 28,68 35,44 17,28 41,28'/%3E%3Cpolygon points='50,16 56,31 72,31 60,41 64,57 50,48 36,57 40,41 28,31 44,31'/%3E%3Ccircle cx='50' cy='50' r='13'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Ambient glow from centre */
+    #envelope-screen::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(200,160,85,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .envelope-container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.8rem;
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .env-badge { text-align: center; }
+
+    .env-badge .arabic {
+      font-family: 'Amiri', serif;
+      font-size: 1.5rem;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .env-badge .sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(232,201,122,0.55);
+    }
+
+    /* The envelope wrapper — perspective needed for 3-D flap flip */
+    .envelope-wrap {
+      position: relative;
+      width: min(280px, 80vw);
+      cursor: pointer;
+      perspective: 700px;
+      filter: drop-shadow(0 18px 50px rgba(200,160,85,0.18));
+      transition: filter 0.35s ease, transform 0.35s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .envelope-wrap:hover {
+      transform: translateY(-5px);
+      filter: drop-shadow(0 28px 70px rgba(200,160,85,0.30));
+    }
+
+    .envelope-body {
+      width: 100%;
+      height: 0;
+      padding-bottom: 67%;   /* maintains 3:2 ratio */
+      background: linear-gradient(150deg, #F7EBCD 0%, #E8D090 100%);
+      border-radius: 3px 3px 8px 8px;
+      position: relative;
+      overflow: visible;
+    }
+
+    /* Bottom fold */
+    .env-fold-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 0;
+      border-left: 50% solid transparent;
+      border-right: 50% solid transparent;
+      border-bottom: 48% solid #CDA648;
+    }
+
+    /* Left side fold */
+    .env-fold-left {
+      position: absolute;
+      bottom: 0; left: 0; width: 0; height: 0;
+      border-bottom: 100% solid #BF9A40;
+      border-right: 50% solid transparent;
+    }
+
+    /* Right side fold */
+    .env-fold-right {
+      position: absolute;
+      bottom: 0; right: 0; width: 0; height: 0;
+      border-bottom: 100% solid #BF9A40;
+      border-left: 50% solid transparent;
+    }
+
+    /* The flap — flips open on .opening */
+    .env-flap {
+      position: absolute;
+      top: 0; left: 0; width: 0; height: 0;
+      border-left: 50% solid transparent;
+      border-right: 50% solid transparent;
+      border-top: 48% solid #D4B060;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.4,0,0.2,1);
+      z-index: 3;
+    }
+
+    .envelope-wrap.opening .env-flap {
+      transform: rotateX(-180deg);
+    }
+
+    /* Wax seal */
+    .wax-seal {
+      position: absolute;
+      top: 36%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52px; height: 52px;
+      background: radial-gradient(circle at 38% 33%, #9B1E1E, #5C0E0E);
+      border-radius: 50%;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.12);
+      transition: transform 0.45s ease, opacity 0.45s ease;
+    }
+
+    .envelope-wrap.opening .wax-seal {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+
+    .wax-seal::before {
+      content: '✦';
+      color: rgba(255,215,130,0.9);
+      font-size: 1.25rem;
+    }
+
+    /* The letter that slides up from inside */
+    .env-letter {
+      position: absolute;
+      bottom: 8%; left: 7%; right: 7%;
+      height: 72%;
+      background: linear-gradient(160deg, #FFFDF6, #FFF8E4);
+      border-radius: 2px;
+      z-index: 2;
+      transform: translateY(0);
+      transition: transform 0.75s 0.25s cubic-bezier(0.4,0,0.2,1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.14);
+      padding: 10px;
+    }
+
+    .envelope-wrap.opening .env-letter {
+      transform: translateY(-110%);
+    }
+
+    .env-letter .line {
+      width: 55%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .env-letter .mono {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.8rem, 3vw, 1.05rem);
+      color: var(--gold-dark);
+      letter-spacing: 0.08em;
+    }
+
+    .env-letter .date-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      color: rgba(139,105,20,0.7);
+      margin-top: 4px;
+    }
+
+    .open-hint {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      color: rgba(232,201,122,0.65);
+      letter-spacing: 0.15em;
+      text-align: center;
+      animation: hint-pulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes hint-pulse {
+      0%, 100% { opacity: 0.5; transform: translateY(0); }
+      50%       { opacity: 1;   transform: translateY(-3px); }
+    }
+
+    /* ================================================================
+       MAIN INVITATION
+       ================================================================ */
+    #invitation {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+
+    #invitation.visible { opacity: 1; }
+
+    /* ================================================================
+       FLOATING MUSIC BUTTON
+       ================================================================ */
+    #music-btn {
+      position: fixed;
+      bottom: 24px; right: 20px;
+      z-index: 200;
+      width: 52px; height: 52px;
+      background: var(--forest);
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 22px rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: opacity 0.5s, transform 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #music-btn.show { opacity: 1; }
+    #music-btn:active { transform: scale(0.92); }
+    #music-btn svg { width: 20px; height: 20px; fill: var(--gold-light); transition: opacity 0.2s; }
+
+    /* Ripple ring when music is playing */
+    #music-btn.playing::after {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(200,160,85,0.4);
+      animation: music-ripple 1.8s ease-out infinite;
+    }
+
+    @keyframes music-ripple {
+      0%   { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    /* Music toast — shows filename / status */
+    #music-toast {
+      position: fixed;
+      bottom: 84px; right: 20px;
+      z-index: 198;
+      background: var(--forest);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      color: var(--gold-light);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #music-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================================================================
+       SCROLL REVEAL
+       ================================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.10s; }
+    .reveal-d2 { transition-delay: 0.22s; }
+    .reveal-d3 { transition-delay: 0.34s; }
+    .reveal-d4 { transition-delay: 0.46s; }
+
+    /* ================================================================
+       SHARED DECORATIVE
+       ================================================================ */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: 260px;
+      margin: 1.8rem auto;
+      justify-content: center;
+    }
+
+    .ornament .ln {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+
+    .ornament .ln.r {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+
+    .ornament .dia {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    .ornament .dia.lg {
+      width: 9px; height: 9px;
+      background: var(--gold-light);
+    }
+
+    .sec-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      text-align: center;
+    }
+
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.7rem, 5vw, 2.2rem);
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.2;
+      margin-top: 0.25rem;
+    }
+
+    /* ================================================================
+       HERO
+       ================================================================ */
+    #hero {
+      min-height: 100svh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 70px 1.8rem 3rem;
+      overflow: hidden;
+      background: linear-gradient(185deg, #1A0508 0%, var(--forest) 45%, #2A0810 100%);
+    }
+
+    /* Geometric bg pattern */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A05514' stroke-width='0.6'%3E%3Cpolygon points='60,8 72,36 100,36 78,54 86,82 60,66 34,82 42,54 20,36 48,36'/%3E%3Cpolygon points='60,20 68,38 88,38 73,50 79,68 60,57 41,68 47,50 32,38 52,38'/%3E%3Ccircle cx='60' cy='60' r='18'/%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.9;
+    }
+
+    /* Central glow */
+    #hero::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(200,160,85,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .hero-bismillah {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 1.6rem;
+      line-height: 1.5;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-invite-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,245,215,0.5);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .couple-block {
+      margin: 1.6rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    .groom-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--baby-yellow);
+      line-height: 1;
+      text-shadow: 0 3px 24px rgba(200,160,85,0.28);
+    }
+
+    .couple-and {
+      font-family: 'Amiri', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      line-height: 1.3;
+      margin: 0.1rem 0;
+    }
+
+    .bride-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 7vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--champagne);
+      line-height: 1;
+      text-shadow: 0 3px 24px rgba(200,160,85,0.28);
+    }
+
+    .hero-date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(200,160,85,0.12);
+      border: 1px solid rgba(200,160,85,0.28);
+      border-radius: 100px;
+      padding: 7px 20px;
+      margin-top: 1.4rem;
+    }
+
+    .hero-date-chip span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+    }
+
+    .scroll-cue {
+      margin-top: 3.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      animation: scroll-bounce 1.8s ease-in-out infinite;
+    }
+
+    .scroll-cue span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: rgba(200,160,85,0.45);
+      text-transform: uppercase;
+    }
+
+    .scroll-arrow {
+      width: 18px; height: 18px;
+      border-right: 1.5px solid rgba(200,160,85,0.4);
+      border-bottom: 1.5px solid rgba(200,160,85,0.4);
+      transform: rotate(45deg);
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { opacity: 0.4; transform: translateY(0); }
+      50%       { opacity: 1;   transform: translateY(7px); }
+    }
+
+    /* ================================================================
+       COUNTDOWN
+       ================================================================ */
+    #countdown-section {
+      padding: var(--section-gap) 2rem;
+      background: var(--ivory);
+      text-align: center;
+      position: relative;
+    }
+
+    #countdown-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 0.9rem;
+      margin: 2rem 0 0;
+    }
+
+    .cd-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .cd-box {
+      width: clamp(62px, 18vw, 72px);
+      height: clamp(62px, 18vw, 72px);
+      background: linear-gradient(150deg, var(--forest), var(--forest-mid));
+      border: 1px solid rgba(200,160,85,0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cd-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,160,85,0.4), transparent);
+    }
+
+    .cd-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.7rem, 5vw, 2.1rem);
+      font-weight: 500;
+      color: var(--gold-light);
+      line-height: 1;
+      transition: transform 0.25s ease;
+    }
+
+    .cd-label {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    /* ================================================================
+       EVENT DETAILS
+       ================================================================ */
+    #details-section {
+      padding: var(--section-gap) 2rem;
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .detail-card {
+      max-width: 370px;
+      margin: 2rem auto 0;
+      background: linear-gradient(150deg, var(--ivory), #FFF8E8);
+      border: 1px solid var(--gold-border);
+      border-radius: 14px;
+      padding: 2.2rem 1.8rem;
+      position: relative;
+    }
+
+    .detail-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      border-radius: 2px;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+      text-align: left;
+    }
+
+    .detail-row:last-child { margin-bottom: 0; }
+
+    .d-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(145deg, var(--forest), var(--forest-mid));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(200,160,85,0.18);
+    }
+
+    .d-icon svg {
+      width: 15px; height: 15px;
+      stroke: var(--gold-light);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .d-texts { flex: 1; }
+
+    .d-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.63rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 3px;
+    }
+
+    .d-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    .d-value small {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      font-weight: 400;
+      display: block;
+    }
+
+    .attire-block {
+      border-top: 1px solid var(--gold-border);
+      padding-top: 1.4rem;
+      margin-top: 1.4rem;
+    }
+
+    .attire-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.63rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      text-align: center;
+      margin-bottom: 0.9rem;
+    }
+
+    .attire-swatches {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .swatch-card {
+      flex: 1;
+      padding: 1rem 0.6rem;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .swatch-card.champagne {
+      background: linear-gradient(145deg, #F5E8CC, #EBCF8C);
+    }
+
+    .swatch-card.yellow {
+      background: linear-gradient(145deg, #FFFBDC, #FFF29A);
+    }
+
+    .swatch-who {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 3px;
+    }
+
+    .swatch-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    /* ================================================================
+       VENUE
+       ================================================================ */
+    #venue-section {
+      padding: var(--section-gap) 2rem;
+      background: linear-gradient(170deg, var(--forest) 0%, #1A040A 100%);
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #venue-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A05510' stroke-width='0.6'%3E%3Crect x='10' y='10' width='60' height='60' rx='4' transform='rotate(45 40 40)'/%3E%3Ccircle cx='40' cy='40' r='22'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .venue-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    .venue-card {
+      background: rgba(255,253,245,0.04);
+      border: 1px solid rgba(200,160,85,0.18);
+      border-radius: 14px;
+      padding: 2rem 1.5rem;
+      margin: 2rem 0 0;
+      backdrop-filter: blur(4px);
+    }
+
+    .venue-mosque-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .venue-name-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 4vw, 1.35rem);
+      font-weight: 500;
+      color: var(--champagne);
+      margin-bottom: 0.45rem;
+      line-height: 1.3;
+    }
+
+    .venue-addr {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.88rem;
+      color: rgba(255,245,215,0.5);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .map-row {
+      display: flex;
+      gap: 0.7rem;
+      justify-content: center;
+    }
+
+    .map-btn {
+      flex: 1;
+      max-width: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 11px 10px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+      transition: transform 0.2s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .map-btn:active { transform: scale(0.96); }
+
+    .map-btn svg {
+      width: 15px; height: 15px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .map-btn.waze { background: #33CCFF; color: #00264D; }
+    .map-btn.google { background: #4285F4; color: #fff; }
+
+    /* ================================================================
+       GALLERY
+       ================================================================ */
+    #gallery-section {
+      padding: var(--section-gap) 1.4rem;
+      background: var(--ivory);
+      text-align: center;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      gap: 0.65rem;
+      max-width: 400px;
+      margin: 2rem auto 0;
+    }
+
+    .gallery-item {
+      border-radius: 9px;
+      overflow: hidden;
+      background: linear-gradient(145deg, #ECD9B8, #D8C285);
+      border: 1px solid var(--gold-border);
+      position: relative;
+    }
+
+    /* First item — wide hero photo */
+    .gallery-item:first-child {
+      grid-column: 1 / -1;
+      aspect-ratio: 16 / 9;
+    }
+
+    .gallery-item:not(:first-child) { aspect-ratio: 1; }
+
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .gallery-placeholder .ph-icon {
+      font-size: 1.8rem;
+      opacity: 0.35;
+    }
+
+    .gallery-placeholder span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--text-mid);
+      opacity: 0.55;
+    }
+
+    /* ================================================================
+       RSVP
+       ================================================================ */
+    #rsvp-section {
+      padding: var(--section-gap) 2rem;
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .rsvp-subtitle {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      margin-top: 0.3rem;
+    }
+
+    .rsvp-form {
+      max-width: 370px;
+      margin: 2rem auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+
+    .form-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.64rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid var(--gold-border);
+      border-radius: 9px;
+      background: var(--ivory);
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(200,160,85,0.10);
+    }
+
+    .form-input::placeholder { color: rgba(90,58,26,0.30); }
+
+    /* Side radio cards */
+    .side-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .side-radio { display: none; }
+
+    .side-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      padding: 13px 8px;
+      border-radius: 9px;
+      border: 1.5px solid var(--gold-border);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .side-card .sw {
+      width: 30px; height: 10px;
+      border-radius: 100px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .side-card.c-card .sw { background: linear-gradient(to right, #F2DDB8, #E8C870); }
+    .side-card.y-card .sw { background: linear-gradient(to right, #FFF9D0, #F8E840); }
+
+    .side-card span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--text-mid);
+      letter-spacing: 0.04em;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .side-radio:checked + .side-card {
+      border-color: var(--gold);
+      background: rgba(200,160,85,0.07);
+    }
+
+    .side-radio:checked + .side-card span { color: var(--gold-dark); }
+
+    /* Pax counter */
+    .pax-wrap {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--gold-border);
+      border-radius: 9px;
+      overflow: hidden;
+      background: var(--ivory);
+      height: 48px;
+    }
+
+    .pax-btn {
+      width: 48px; height: 100%;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.3rem;
+      color: var(--gold-dark);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    .pax-btn:active { background: rgba(200,160,85,0.10); }
+
+    .pax-val {
+      flex: 1;
+      text-align: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      font-weight: 500;
+      border-left: 1px solid var(--gold-border);
+      border-right: 1px solid var(--gold-border);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(145deg, var(--forest), var(--forest-mid));
+      border: 1px solid rgba(200,160,85,0.28);
+      border-radius: 10px;
+      color: var(--gold-light);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 0.4rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .submit-btn:not(:disabled):active { transform: scale(0.97); }
+
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* RSVP success */
+    #rsvp-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2.2rem 1.5rem;
+      background: rgba(200,160,85,0.07);
+      border: 1px solid var(--gold-border);
+      border-radius: 14px;
+      max-width: 370px;
+      margin: 2rem auto 0;
+    }
+
+    #rsvp-success .chk {
+      width: 52px; height: 52px;
+      background: linear-gradient(145deg, var(--forest), var(--forest-mid));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(200,160,85,0.25);
+    }
+
+    #rsvp-success .chk svg {
+      width: 22px; height: 22px;
+      stroke: var(--gold-light);
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    #rsvp-success p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.08rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Error message */
+    .form-error {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: #8B2020;
+      text-align: center;
+      display: none;
+    }
+
+    /* ================================================================
+       CALENDAR
+       ================================================================ */
+    #calendar-section {
+      padding: var(--section-gap) 2rem;
+      background: var(--ivory);
+      text-align: center;
+    }
+
+    .cal-desc {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-top: 0.3rem;
+    }
+
+    .cal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 300px;
+      margin: 2rem auto 0;
+    }
+
+    .cal-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 24px;
+      border-radius: 11px;
+      text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: none;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cal-btn:active { transform: scale(0.97); }
+
+    .cal-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .cal-btn.gcal { background: #4285F4; color: #fff; }
+    .cal-btn.acal { background: linear-gradient(145deg, #1C1C1E, #2C2C2E); color: #fff; }
+
+    /* ================================================================
+       FOOTER
+       ================================================================ */
+    footer {
+      background: var(--dark-bg);
+      padding: 3rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .footer-arabic {
+      font-family: 'Amiri', serif;
+      font-size: 1.2rem;
+      color: var(--gold-light);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-line {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: rgba(200,160,85,0.35);
+      letter-spacing: 0.12em;
+      line-height: 1.8;
+    }
+
+    /* ================================================================
+       RESPONSIVE HELPERS
+       ================================================================ */
+    @media (max-width: 340px) {
+      .countdown-grid { gap: 0.5rem; }
+      .map-row { flex-direction: column; align-items: center; }
+      .map-btn { max-width: 200px; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================================================================
+     ENVELOPE SCREEN
+     ================================================================ -->
+<div id="envelope-screen">
+  <canvas id="particles-canvas"></canvas>
+
+  <div class="envelope-container">
+
+    <div class="env-badge">
+      <span class="arabic">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</span>
+      <span class="sub">Jemputan Majlis Nikah · 7 Ogos 2026</span>
+    </div>
+
+    <div class="envelope-wrap" id="envelope" onclick="openEnvelope()" role="button" tabindex="0" aria-label="Buka jemputan">
+      <div class="envelope-body">
+        <div class="env-fold-left"></div>
+        <div class="env-fold-right"></div>
+        <div class="env-fold-bottom"></div>
+        <div class="env-flap"></div>
+        <div class="wax-seal"></div>
+        <div class="env-letter">
+          <div class="line"></div>
+          <div class="mono">Mustafa Khan &amp; Nurin Natasha</div>
+          <div class="line"></div>
+          <div class="date-line">7 · 8 · 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="open-hint">✦ &nbsp; Ketuk untuk membuka jemputan anda &nbsp; ✦</p>
+
+  </div>
+</div>
+
+<!-- ================================================================
+     MAIN INVITATION
+     ================================================================ -->
+<main id="invitation">
+
+  <!-- =====================================================
+       BACKGROUND MUSIC
+       HOW TO SET UP:
+       1. Download your chosen song as an MP3
+       2. Create a folder called  audio/  in your GitHub repo
+       3. Upload the MP3 as  audio/wedding-music.mp3
+       4. That's it — no other changes needed.
+       ===================================================== -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="audio/wedding-music.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music toast notification -->
+  <div id="music-toast">♪ &nbsp; Sedang dimainkan…</div>
+
+  <!-- Floating music toggle button -->
+  <div id="music-btn" onclick="toggleMusic()" role="button" tabindex="0" aria-label="Toggle muzik" title="Toggle muzik">
+    <!-- Note icon (default) -->
+    <svg id="icon-note" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 18V5l12-2v13M9 18c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-2c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"/>
+    </svg>
+    <!-- Pause icon (shown when playing) -->
+    <svg id="icon-pause" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none;">
+      <rect x="6" y="4" width="4" height="16" rx="1"/>
+      <rect x="14" y="4" width="4" height="16" rx="1"/>
+    </svg>
+  </div>
+
+  <!-- ==========================
+       HERO
+       ========================== -->
+  <section id="hero">
+    <div class="hero-inner">
+
+      <span class="hero-bismillah reveal">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</span>
+
+      <p class="hero-eyebrow reveal reveal-d1">Dengan Penuh Kesyukuran</p>
+      <p class="hero-invite-text reveal reveal-d1">Menjemput Kehadiran Anda Ke Majlis</p>
+
+      <div class="ornament reveal reveal-d2">
+        <div class="ln"></div>
+        <div class="dia"></div>
+        <div class="dia lg"></div>
+        <div class="dia"></div>
+        <div class="ln r"></div>
+      </div>
+
+      <div class="couple-block reveal reveal-d2">
+        <span class="groom-name">Mustafa Khan</span>
+        <span class="couple-and">&amp;</span>
+        <span class="bride-name">Nurin Natasha</span>
+      </div>
+
+      <p class="reveal reveal-d3" style="font-family:'Cormorant Garamond',serif; font-size:0.72rem; letter-spacing:0.12em; color:rgba(255,245,215,0.35); margin-top:0.6rem; line-height:1.7;">
+        Mustafa Khan Bin Nawaz Khan<br>Nurin Natasha Binti Muhamad Nasir
+      </p>
+
+      <div class="hero-date-chip reveal reveal-d3">
+        <span>✦</span>
+        <span>7 Ogos 2026 &nbsp;·&nbsp; 9:00 Pagi</span>
+        <span>✦</span>
+      </div>
+
+      <div class="scroll-cue reveal reveal-d4">
+        <span>Tatal ke bawah</span>
+        <div class="scroll-arrow"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================
+       COUNTDOWN
+       ========================== -->
+  <section id="countdown-section">
+    <p class="sec-eyebrow reveal">Menghitung Masa</p>
+    <h2 class="sec-title reveal">Hari Yang Dinantikan</h2>
+
+    <div class="ornament reveal">
+      <div class="ln"></div><div class="dia"></div><div class="ln r"></div>
+    </div>
+
+    <div class="countdown-grid reveal">
+      <div class="cd-item">
+        <div class="cd-box"><span class="cd-number" id="cd-days">00</span></div>
+        <span class="cd-label">Hari</span>
+      </div>
+      <div class="cd-item">
+        <div class="cd-box"><span class="cd-number" id="cd-hours">00</span></div>
+        <span class="cd-label">Jam</span>
+      </div>
+      <div class="cd-item">
+        <div class="cd-box"><span class="cd-number" id="cd-minutes">00</span></div>
+        <span class="cd-label">Minit</span>
+      </div>
+      <div class="cd-item">
+        <div class="cd-box"><span class="cd-number" id="cd-seconds">00</span></div>
+        <span class="cd-label">Saat</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================
+       EVENT DETAILS
+       ========================== -->
+  <section id="details-section">
+    <p class="sec-eyebrow reveal">Butiran Majlis</p>
+    <h2 class="sec-title reveal">Majlis Nikah</h2>
+
+    <div class="ornament reveal">
+      <div class="ln"></div><div class="dia"></div><div class="ln r"></div>
+    </div>
+
+    <div class="detail-card reveal">
+
+      <div class="detail-row">
+        <div class="d-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="d-texts">
+          <div class="d-label">Tarikh</div>
+          <div class="d-value">Jumaat, 7 Ogos 2026</div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="d-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="d-texts">
+          <div class="d-label">Masa</div>
+          <div class="d-value">9:00 pagi — 10:30 pagi</div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="d-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+        </div>
+        <div class="d-texts">
+          <div class="d-label">Tempat</div>
+          <div class="d-value">
+            Masjid Sultan Hisamuddin Alam Shah
+            <small>Pekan Batu 14, 43100 Hulu Langat, Selangor</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="attire-block">
+        <div class="attire-label">Warna Pakaian Jemputan</div>
+        <div class="attire-swatches">
+          <div class="swatch-card champagne">
+            <div class="swatch-who">Pihak Pengantin Perempuan</div>
+            <div class="swatch-name">Champagne</div>
+          </div>
+          <div class="swatch-card yellow">
+            <div class="swatch-who">Pihak Pengantin Lelaki</div>
+            <div class="swatch-name">Kuning Muda</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================
+       VENUE + MAPS
+       ========================== -->
+  <section id="venue-section">
+    <div class="venue-inner">
+
+      <p class="sec-eyebrow reveal" style="color:var(--gold);">Lokasi Majlis</p>
+      <h2 class="sec-title reveal" style="color:var(--champagne);">Cara Ke Sana</h2>
+
+      <div class="ornament reveal">
+        <div class="ln"></div><div class="dia"></div><div class="ln r"></div>
+      </div>
+
+      <div class="venue-card reveal">
+        <span class="venue-mosque-icon">🕌</span>
+        <div class="venue-name-text">Masjid Sultan Hisamuddin Alam Shah</div>
+        <div class="venue-addr">
+          B52, Kampung Batu 14<br>
+          43100 Hulu Langat, Selangor
+        </div>
+
+        <div class="map-row">
+          <a href="https://waze.com/ul?q=Masjid+Sultan+Hisamuddin+Alam+Shah+Batu+14+Hulu+Langat&navigate=yes"
+             target="_blank" rel="noopener noreferrer" class="map-btn waze">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20.54 6.63C19.46 4.23 17.4 2.45 14.9 1.7A10.26 10.26 0 003.46 6.63C2.37 9.05 2.44 11.9 3.65 14.27L2.06 21.94l7.67-1.56c1.09.5 2.28.79 3.52.79a10.25 10.25 0 007.29-17.54z"/>
+            </svg>
+            Waze
+          </a>
+          <a href="https://maps.google.com/?q=Masjid+Sultan+Hisamuddin+Alam+Shah,+Kampung+Batu+14,+43100+Hulu+Langat,+Selangor"
+             target="_blank" rel="noopener noreferrer" class="map-btn google">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+            Google Maps
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================
+       GALLERY
+       ========================== -->
+  <section id="gallery-section">
+    <p class="sec-eyebrow reveal">Kenangan Bersama</p>
+    <h2 class="sec-title reveal">Galeri Foto</h2>
+
+    <div class="ornament reveal">
+      <div class="ln"></div><div class="dia"></div><div class="ln r"></div>
+    </div>
+
+    <!--
+      HOW TO ADD PHOTOS:
+      Replace <div class="gallery-placeholder">...</div> with:
+      <img src="images/your-photo.jpg" alt="Description">
+      Upload your photos to an /images/ folder in your GitHub repo.
+    -->
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <!-- Hero / wide photo — replace with: <img src="images/hero.jpg" alt="Foto Pertunangan"> -->
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🖼</span>
+          <span>Foto Utama</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🖼</span>
+          <span>Foto 2</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🖼</span>
+          <span>Foto 3</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🖼</span>
+          <span>Foto 4</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="ph-icon">🖼</span>
+          <span>Foto 5</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================
+       RSVP
+       ========================== -->
+  <section id="rsvp-section">
+    <p class="sec-eyebrow reveal">Pengesahan Kehadiran</p>
+    <h2 class="sec-title reveal">RSVP</h2>
+    <p class="rsvp-subtitle reveal">Sila maklumkan kehadiran anda sebelum 25 Julai 2026</p>
+
+    <div class="ornament reveal">
+      <div class="ln"></div><div class="dia"></div><div class="ln r"></div>
+    </div>
+
+    <form class="rsvp-form reveal" id="rsvp-form" onsubmit="submitRSVP(event)" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="rsvp-name">Nama Penuh</label>
+        <input type="text" id="rsvp-name" class="form-input"
+               placeholder="Masukkan nama penuh anda" required autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="rsvp-phone">No. Telefon</label>
+        <input type="tel" id="rsvp-phone" class="form-input"
+               placeholder="012-3456789" autocomplete="tel">
+      </div>
+
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom:6px;">Pihak Anda</div>
+        <div class="side-grid">
+          <input type="radio" name="side" id="side-bride" value="Pihak Pengantin Perempuan" class="side-radio">
+          <label for="side-bride" class="side-card c-card">
+            <div class="sw"></div>
+            <span>Pihak Pengantin Perempuan</span>
+          </label>
+
+          <input type="radio" name="side" id="side-groom" value="Pihak Pengantin Lelaki" class="side-radio">
+          <label for="side-groom" class="side-card y-card">
+            <div class="sw"></div>
+            <span>Pihak Pengantin Lelaki</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label" style="margin-bottom:6px;">Bilangan Tetamu (termasuk diri anda)</div>
+        <div class="pax-wrap">
+          <button type="button" class="pax-btn" onclick="changePax(-1)" aria-label="Kurang">−</button>
+          <span class="pax-val" id="pax-display" aria-live="polite">1</span>
+          <button type="button" class="pax-btn" onclick="changePax(1)" aria-label="Tambah">+</button>
+        </div>
+      </div>
+
+      <p class="form-error" id="form-error">Sila isi semua maklumat yang diperlukan.</p>
+
+      <button type="submit" class="submit-btn" id="submit-btn">
+        ✦ &nbsp; Hantar RSVP &nbsp; ✦
+      </button>
+
+    </form>
+
+    <div id="rsvp-success">
+      <div class="chk">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p>
+        Terima kasih, <strong id="success-name"></strong>!<br>
+        Kehadiran anda telah berjaya direkodkan.<br>
+        Kami menanti kedatangan anda dengan penuh kegembiraan.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================
+       CALENDAR
+       ========================== -->
+  <section id="calendar-section">
+    <p class="sec-eyebrow reveal">Jangan Terlepas</p>
+    <h2 class="sec-title reveal">Simpan Tarikh Ini</h2>
+    <p class="cal-desc reveal">Tambah peringatan ke kalendar anda</p>
+
+    <div class="ornament reveal">
+      <div class="ln"></div><div class="dia"></div><div class="ln r"></div>
+    </div>
+
+    <div class="cal-buttons reveal">
+      <!-- Google Calendar link — UPDATE: replace couple names in text param -->
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis+Nikah+Mustafa+Khan+%26+Nurin+Natasha&dates=20260807T010000Z/20260807T023000Z&details=Majlis+Nikah+Mustafa+Khan+%26+Nurin+Natasha&location=Masjid+Sultan+Hisamuddin+Alam+Shah%2C+Pekan+Batu+14%2C+43100+Hulu+Langat%2C+Selangor"
+         target="_blank" rel="noopener noreferrer" class="cal-btn gcal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+          <line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/>
+          <line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Google Calendar
+      </a>
+
+      <button class="cal-btn acal" onclick="downloadICS()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/>
+          <path d="M16 2v5M8 2v5M3 9h18"/>
+        </svg>
+        Apple Calendar (.ics)
+      </button>
+    </div>
+  </section>
+
+  <!-- ==========================
+       FOOTER
+       ========================== -->
+  <footer>
+    <div class="footer-arabic">بَارَكَ اللّٰهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا</div>
+    <p class="footer-line">Mustafa Khan Bin Nawaz Khan &nbsp;·&nbsp; Nurin Natasha Binti Muhamad Nasir</p>
+    <p class="footer-line">Majlis Nikah · Jumaat, 7 Ogos 2026</p>
+    <p class="footer-line">Masjid Sultan Hisamuddin Alam Shah · Hulu Langat, Selangor</p>
+  </footer>
+
+</main><!-- end #invitation -->
+
+<!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
+<script>
+  /* ============================================================
+     !! CONFIGURATION — UPDATE ALL VALUES BELOW !!
+     ============================================================
+     SUPABASE SETUP (free at supabase.com):
+       1. Create a new project
+       2. Go to Table Editor → New Table → name it "rsvp_nikah"
+       3. Add columns: name (text), phone (text), side (text), pax (int2)
+       4. Authentication → Policies → Enable RLS
+          Add policy: Allow insert for anon role
+       5. Project Settings → API → copy URL and anon key below
+  */
+  const CONFIG = {
+    SUPABASE_URL:      'https://XXXXXXXXXXXXXXXXXX.supabase.co',
+    SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY_HERE',
+    TABLE:             'rsvp_nikah',
+    EVENT_DATE:        new Date('2026-08-07T09:00:00+08:00'),
+  };
+
+  /* ============================================================
+     PARTICLE ANIMATION (envelope background)
+     ============================================================ */
+  (function initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let rafId;
+
+    function resize() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function newParticle() {
+      return {
+        x:     Math.random() * canvas.width,
+        y:     canvas.height + 10,
+        vx:    (Math.random() - 0.5) * 0.6,
+        vy:    -(Math.random() * 1.4 + 0.4),
+        alpha: Math.random() * 0.5 + 0.25,
+        r:     Math.random() * 2.2 + 0.4,
+        decay: Math.random() * 0.003 + 0.0015,
+        gold:  Math.random() > 0.45,
+      };
+    }
+
+    function tick() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (particles.length < 65) particles.push(newParticle());
+      particles = particles.filter(p => p.alpha > 0);
+      particles.forEach(p => {
+        p.x    += p.vx;
+        p.y    += p.vy;
+        p.alpha -= p.decay;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillStyle   = p.gold ? '#C8A055' : '#E8D080';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      });
+      rafId = requestAnimationFrame(tick);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    tick();
+    window._killParticles = () => cancelAnimationFrame(rafId);
+  }());
+
+  /* ============================================================
+     MUSIC — HTML5 Audio
+     The audio element is in the DOM already (<audio id="bg-audio">).
+     Calling .play() synchronously inside a user gesture (the envelope
+     tap) satisfies browser autoplay policies on Android and desktop.
+     iOS Safari allows it too because it is a direct tap handler.
+     ============================================================ */
+  const audio      = document.getElementById('bg-audio');
+  const musicBtn   = document.getElementById('music-btn');
+  const toast      = document.getElementById('music-toast');
+  let   toastTimer = null;
+
+  function setMusicUI(playing) {
+    document.getElementById('icon-note').style.display  = playing ? 'none'  : 'block';
+    document.getElementById('icon-pause').style.display = playing ? 'block' : 'none';
+    musicBtn.classList.toggle('playing', playing);
+  }
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function startMusic() {
+    /* .play() returns a Promise — catch rejection silently so the
+       page never crashes even if the browser still blocks it. */
+    audio.play()
+      .then(() => {
+        setMusicUI(true);
+        showToast('♪  Sedang dimainkan…');
+      })
+      .catch(() => {
+        /* Playback blocked (very rare when called from a tap).
+           Show toast prompting manual tap on the music button. */
+        showToast('Tekan ♪ untuk mainkan muzik');
+      });
+  }
+
+  function toggleMusic() {
+    if (audio.paused) {
+      audio.play().then(() => { setMusicUI(true);  showToast('♪  Sedang dimainkan…'); }).catch(() => {});
+    } else {
+      audio.pause();
+      setMusicUI(false);
+      showToast('Muzik dijeda');
+    }
+  }
+
+  /* ============================================================
+     ENVELOPE OPEN
+     startMusic() is called SYNCHRONOUSLY here — no setTimeout —
+     so the browser traces the gesture directly to the .play() call.
+     ============================================================ */
+  let envelopeOpened = false;
+
+  function openEnvelope() {
+    if (envelopeOpened) return;
+    envelopeOpened = true;
+
+    document.getElementById('envelope').classList.add('opening');
+
+    /* Start music NOW — inside the tap gesture, not in a timeout */
+    startMusic();
+
+    /* Transition to main invitation */
+    setTimeout(() => {
+      document.getElementById('envelope-screen').classList.add('hide');
+      const inv = document.getElementById('invitation');
+      inv.style.display = 'block';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => inv.classList.add('visible'));
+      });
+      musicBtn.classList.add('show');
+      window._killParticles && window._killParticles();
+      initReveal();
+    }, 950);
+  }
+
+  /* Keyboard accessibility for envelope */
+  document.getElementById('envelope').addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+  });
+
+  /* ============================================================
+     COUNTDOWN TIMER
+     ============================================================ */
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function animateNumber(el, newVal) {
+    const formatted = pad(newVal);
+    if (el.textContent !== formatted) {
+      el.style.transform = 'translateY(-5px)';
+      el.style.opacity   = '0.4';
+      setTimeout(() => {
+        el.textContent     = formatted;
+        el.style.transform = 'none';
+        el.style.opacity   = '1';
+      }, 150);
+    }
+  }
+
+  function updateCountdown() {
+    const diff = CONFIG.EVENT_DATE - new Date();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(id => {
+        document.getElementById(id).textContent = '00';
+      });
+      return;
+    }
+    animateNumber(document.getElementById('cd-days'),    Math.floor(diff / 86400000));
+    animateNumber(document.getElementById('cd-hours'),   Math.floor((diff % 86400000) / 3600000));
+    animateNumber(document.getElementById('cd-minutes'), Math.floor((diff % 3600000)  / 60000));
+    animateNumber(document.getElementById('cd-seconds'), Math.floor((diff % 60000)    / 1000));
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ============================================================
+     SCROLL REVEAL (Intersection Observer)
+     ============================================================ */
+  function initReveal() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+
+  /* ============================================================
+     PAX COUNTER
+     ============================================================ */
+  let paxValue = 1;
+
+  function changePax(delta) {
+    paxValue = Math.max(1, Math.min(20, paxValue + delta));
+    document.getElementById('pax-display').textContent = paxValue;
+  }
+
+  /* ============================================================
+     RSVP — Supabase submission
+     ============================================================ */
+  async function submitRSVP(e) {
+    e.preventDefault();
+
+    const name  = document.getElementById('rsvp-name').value.trim();
+    const phone = document.getElementById('rsvp-phone').value.trim();
+    const side  = document.querySelector('input[name="side"]:checked')?.value || 'Tidak dinyatakan';
+    const errEl = document.getElementById('form-error');
+
+    if (!name) {
+      errEl.textContent = 'Sila masukkan nama penuh anda.';
+      errEl.style.display = 'block';
+      document.getElementById('rsvp-name').focus();
+      return;
+    }
+    errEl.style.display = 'none';
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled    = true;
+    btn.textContent = 'Menghantar…';
+
+    try {
+      const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${CONFIG.TABLE}`, {
+        method:  'POST',
+        headers: {
+          'Content-Type':  'application/json',
+          'apikey':        CONFIG.SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
+          'Prefer':        'return=minimal',
+        },
+        body: JSON.stringify({ name, phone, side, pax: paxValue }),
+      });
+
+      if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`HTTP ${res.status}: ${body}`);
+      }
+
+      // Show success state
+      document.getElementById('rsvp-form').style.display    = 'none';
+      document.getElementById('success-name').textContent    = name;
+      const successEl = document.getElementById('rsvp-success');
+      successEl.style.display = 'flex';
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    } catch (err) {
+      console.error('RSVP error:', err);
+      btn.disabled    = false;
+      btn.textContent = '✦ \u00A0 Hantar RSVP \u00A0 ✦';
+      errEl.textContent   = 'Maaf, berlaku ralat semasa menghantar. Sila cuba semula.';
+      errEl.style.display = 'block';
+    }
+  }
+
+  /* ============================================================
+     APPLE CALENDAR — .ics download
+     UPDATE: Replace [Nama Pengantin] in SUMMARY with actual names
+     ============================================================ */
+  function downloadICS() {
+    const icsLines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Majlis Nikah 2026//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'DTSTART:20260807T010000Z',          // 9:00am MYT = 01:00 UTC
+      'DTEND:20260807T023000Z',            // 10:30am MYT = 02:30 UTC
+      'SUMMARY:Majlis Nikah — Mustafa Khan & Nurin Natasha',
+      'LOCATION:Masjid Sultan Hisamuddin Alam Shah\\, Pekan Batu 14\\, 43100 Hulu Langat\\, Selangor',
+      'DESCRIPTION:Majlis Nikah — Jemputan hadir.',
+      'STATUS:CONFIRMED',
+      'BEGIN:VALARM',
+      'TRIGGER:-P1D',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Peringatan: Majlis Nikah esok!',
+      'END:VALARM',
+      'BEGIN:VALARM',
+      'TRIGGER:-PT2H',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Majlis Nikah bermula dalam 2 jam.',
+      'END:VALARM',
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ].join('\r\n');
+
+    const blob = new Blob([icsLines], { type: 'text/calendar;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = Object.assign(document.createElement('a'), { href: url, download: 'majlis-nikah-2026.ics' });
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+</script>
+
+</body>
+</html>
