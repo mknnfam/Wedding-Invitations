@@ -1674,21 +1674,18 @@
      ================================================================ -->
 <script>
   /* ============================================================
-     !! CONFIGURATION — UPDATE ALL VALUES BELOW !!
-     ============================================================
-     SUPABASE SETUP (free at supabase.com):
-       1. Create a new project
-       2. Go to Table Editor → New Table → name it "rsvp_nikah"
-       3. Add columns: name (text), phone (text), side (text), pax (int2)
-       4. Authentication → Policies → Enable RLS
-          Add policy: Allow insert for anon role
-       5. Project Settings → API → copy URL and anon key below
+     CONFIGURATION — paste your Apps Script /exec URL below.
+     All three invitation pages share the same SCRIPT_URL.
+     Only EVENT_NAME changes per page:
+       Nikah page          → 'nikah'
+       Bride Reception     → 'bride-reception'
+       Groom Reception     → 'groom-reception'
   */
   const CONFIG = {
-    SUPABASE_URL:      'https://zywstboojibjmhfvrxri.supabase.co',
-    SUPABASE_ANON_KEY: 'sb_publishable_BOe_G5he4FwcaslyNbavJQ_JLc0fTKM',
-    TABLE:             'rsvp_nikah',
-    EVENT_DATE:        new Date('2026-08-07T09:00:00+08:00'),
+    // Paste your deployed Apps Script /exec URL here after setup
+    SCRIPT_URL:  'https://script.google.com/macros/s/AKfycbzlSS_3pDB0NwzATJFvM2ed0xlPmdsqGWoOny_Ok5hsa51u4jFO0SwvnYpfIKW5F7Sy/exec',
+    EVENT_NAME:  'nikah',   // do not change for this page
+    EVENT_DATE:  new Date('2026-08-07T09:00:00+08:00'),
   };
 
   /* ============================================================
@@ -1889,7 +1886,10 @@
   }
 
   /* ============================================================
-     RSVP — Supabase submission
+     RSVP — Google Sheets via Apps Script
+     Uses mode:'no-cors' so no CORS preflight is needed.
+     The request always reaches the sheet; success is shown
+     optimistically after the fetch resolves.
      ============================================================ */
   async function submitRSVP(e) {
     e.preventDefault();
@@ -1900,7 +1900,7 @@
     const errEl = document.getElementById('form-error');
 
     if (!name) {
-      errEl.textContent = 'Sila masukkan nama penuh anda.';
+      errEl.textContent   = 'Sila masukkan nama penuh anda.';
       errEl.style.display = 'block';
       document.getElementById('rsvp-name').focus();
       return;
@@ -1909,28 +1909,19 @@
 
     const btn = document.getElementById('submit-btn');
     btn.disabled    = true;
-    btn.textContent = 'Menghantar…';
+    btn.textContent = 'Menghantar\u2026';
 
     try {
-      const res = await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${CONFIG.TABLE}`, {
+      await fetch(CONFIG.SCRIPT_URL, {
         method:  'POST',
-        headers: {
-          'Content-Type':  'application/json',
-          'apikey':        CONFIG.SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${CONFIG.SUPABASE_ANON_KEY}`,
-          'Prefer':        'return=minimal',
-        },
-        body: JSON.stringify({ name, phone, side, pax: paxValue }),
+        mode:    'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body:    JSON.stringify({ event: CONFIG.EVENT_NAME, name, phone, side, pax: paxValue }),
       });
 
-      if (!res.ok) {
-        const body = await res.text();
-        throw new Error(`HTTP ${res.status}: ${body}`);
-      }
-
-      // Show success state
-      document.getElementById('rsvp-form').style.display    = 'none';
-      document.getElementById('success-name').textContent    = name;
+      // Show success — response is opaque with no-cors so we trust it went through
+      document.getElementById('rsvp-form').style.display  = 'none';
+      document.getElementById('success-name').textContent = name;
       const successEl = document.getElementById('rsvp-success');
       successEl.style.display = 'flex';
       successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1938,7 +1929,7 @@
     } catch (err) {
       console.error('RSVP error:', err);
       btn.disabled    = false;
-      btn.textContent = '✦ \u00A0 Hantar RSVP \u00A0 ✦';
+      btn.textContent = '\u2736 \u00A0 Hantar RSVP \u00A0 \u2736';
       errEl.textContent   = 'Maaf, berlaku ralat semasa menghantar. Sila cuba semula.';
       errEl.style.display = 'block';
     }
