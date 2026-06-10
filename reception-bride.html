@@ -6,6 +6,8 @@
 <meta name="theme-color" content="#2E1B10">
 <meta property="og:title" content="Wedding Reception — Mustafa Khan &amp; Nurin Natasha">
 <meta property="og:description" content="Friday · 07 / August / 2026 · Camelia Event Space @ Fiesta Mall, Axis Pandan">
+<meta property="og:image" content="https://wedding-invitations-i84.pages.dev/images/hero.jpg">
+<meta property="og:url" content="https://wedding-invitations-i84.pages.dev/reception-bride">
 <title>Wedding Reception — Mustafa Khan &amp; Nurin Natasha · 07 August 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,19 +26,29 @@ img{max-width:100%;display:block}
 .disp{font-family:'Marcellus',serif}
 
 /* songket diamond lattice */
-.songket{background-image:url("data:image/svg+xml,%3Csvg width='72' height='72' viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF6A' stroke-opacity='.13' stroke-width='.8'%3E%3Cpath d='M36 4L68 36 36 68 4 36z'/%3E%3Cpath d='M36 16L56 36 36 56 16 36z'/%3E%3Cpath d='M36 28l8 8-8 8-8-8z'/%3E%3C/g%3E%3C/svg%3E")}
+.songket{background-image:url("data:image/svg+xml,%3Csvg width='72' height='72' viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF6A' stroke-opacity='.2' stroke-width='.8'%3E%3Cpath d='M36 4L68 36 36 68 4 36z'/%3E%3Cpath d='M36 16L56 36 36 56 16 36z'/%3E%3Cpath d='M36 28l8 8-8 8-8-8z'/%3E%3C/g%3E%3C/svg%3E")}
 
 /* gold foil text */
 .foil{background:linear-gradient(110deg,#A8854C 0%,#EFD9A7 28%,#FFF3D6 50%,#D4AF6A 72%,#A8854C 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:foil 6s linear infinite}
 @keyframes foil{to{background-position:200% center}}
 
-/* ===== GATE: gold threads weaving ===== */
-#gate{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at 50% 30%,var(--panel),var(--brown-deep) 78%);display:flex;align-items:center;justify-content:center;transition:opacity 1s ease,visibility 1s ease;padding:1.5rem;overflow:hidden}
+/* ===== GATE: songket medallion ===== */
+#gate{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at 50% 30%,var(--panel),var(--brown-deep) 78%);display:flex;flex-direction:column;gap:1.6rem;align-items:center;justify-content:center;transition:opacity 1s ease,visibility 1s ease;padding:1.5rem;overflow:hidden}
 #gate.hide{opacity:0;visibility:hidden;pointer-events:none}
-.threads{position:absolute;inset:0;pointer-events:none}
-.threads i{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);animation:weave 2.6s ease forwards}
-@keyframes weave{to{transform:scaleX(1)}}
-.gate-inner{position:relative;z-index:3;text-align:center;max-width:460px;border:1px solid var(--line);padding:3rem 1.8rem;background:rgba(31,17,9,.55)}
+.gborder{display:flex;align-items:center;gap:.8rem;width:min(430px,82vw);color:var(--gold);opacity:0;animation:fadeIn 1.4s ease .3s forwards}
+.gborder i{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);box-shadow:0 4px 0 rgba(212,175,106,.22),0 -4px 0 rgba(212,175,106,.22)}
+.gborder b{font-weight:400;font-size:.85rem}
+@keyframes fadeIn{to{opacity:1}}
+.gate-inner{position:relative;z-index:3;text-align:center;max-width:480px;border:1px solid var(--gold-dim);padding:2.5rem 1.8rem 3rem;background:linear-gradient(165deg,#241509,#2E1B10 60%,#241509);box-shadow:0 0 0 1px rgba(212,175,106,.12),0 30px 80px rgba(0,0,0,.65),inset 0 0 46px rgba(212,175,106,.07);overflow:hidden}
+.gate-inner::after{content:'';position:absolute;top:-10%;bottom:-10%;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(239,217,167,.09),transparent);transform:skewX(-14deg);animation:sheen 5.5s ease-in-out infinite;pointer-events:none}
+@keyframes sheen{0%,55%{left:-70%}100%{left:140%}}
+.medallion{width:94px;height:94px;margin:0 auto 1.1rem;display:block}
+.medallion .dr{stroke-dasharray:600;stroke-dashoffset:600;animation:draw 2.2s ease forwards}
+.medallion .d2{animation-delay:.3s}.medallion .d3{animation-delay:.6s}.medallion .d4{animation-delay:.9s;fill:rgba(212,175,106,.28)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.gate-inner>p,.gate-inner>h1,.gate-inner>button{opacity:0;transform:translateY(12px);animation:rise .9s ease forwards}
+.gate-inner .pre{animation-delay:.45s}.gate-inner h1{animation-delay:.7s}.gate-inner .sub{animation-delay:.95s}#opengate{animation-delay:1.25s}
+@keyframes rise{to{opacity:1;transform:none}}
 .gate-inner::before{content:'';position:absolute;inset:7px;border:1px solid rgba(212,175,106,.18);pointer-events:none}
 .gate-inner .corner{position:absolute;width:22px;height:22px;border:1.5px solid var(--gold)}
 .corner.tl{top:-2px;left:-2px;border-right:none;border-bottom:none}
@@ -184,6 +196,8 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   #pcanvas{display:none}
+  .gate-inner>p,.gate-inner>h1,.gate-inner>button,.gborder{opacity:1!important;transform:none!important}
+  .medallion .dr{stroke-dashoffset:0!important}
 }
 </style>
 </head>
@@ -193,14 +207,23 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
 
 <!-- GATE -->
 <div id="gate" class="songket">
-  <div class="threads" id="threads"></div>
+  <div class="gborder" aria-hidden="true"><i></i><b>✦</b><i></i></div>
   <div class="gate-inner">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <svg class="medallion" viewBox="0 0 120 120" aria-hidden="true">
+      <g fill="none" stroke="#D4AF6A" stroke-width="1.3">
+        <path class="dr" d="M60 8L112 60 60 112 8 60Z"/>
+        <path class="dr d2" d="M60 24L96 60 60 96 24 60Z"/>
+        <path class="dr d3" d="M60 40L80 60 60 80 40 60Z"/>
+        <path class="dr d4" d="M60 52l8 8-8 8-8-8z"/>
+      </g>
+    </svg>
     <p class="pre">The Wedding Reception of</p>
     <h1 class="foil">Mustafa Khan<br>&amp; Nurin Natasha</h1>
-    <p>07 · August · 2026 · Camelia Event Space</p>
+    <p class="sub">07 · August · 2026 · Camelia Event Space</p>
     <button id="opengate">Open Invitation</button>
   </div>
+  <div class="gborder" aria-hidden="true"><i></i><b>✦</b><i></i></div>
 </div>
 
 <!-- NAV -->
@@ -393,10 +416,6 @@ const CONFIG={
   TARGET:new Date('2026-08-07T18:30:00+08:00').getTime(),
   GALLERY:10
 };
-
-/* weave threads */
-const tw=document.getElementById('threads');
-for(let i=0;i<9;i++){const t=document.createElement('i');t.style.top=(8+i*10)+'%';t.style.animationDelay=(i*.18)+'s';tw.appendChild(t);}
 
 const gate=document.getElementById('gate'),bgm=document.getElementById('bgm'),mbtn=document.getElementById('mbtn');
 document.getElementById('opengate').addEventListener('click',()=>{

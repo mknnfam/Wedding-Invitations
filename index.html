@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#3D0A14">
+<meta name="theme-color" content="#4A0E1C">
 <meta property="og:title" content="Jemputan Majlis Akad Nikah — Mustafa Khan &amp; Nurin Natasha">
 <meta property="og:description" content="Jumaat · 07 / Ogos / 2026 · Masjid Al-Muttaqin Dusun Tua, Hulu Langat">
+<meta property="og:image" content="https://wedding-invitations-i84.pages.dev/images/hero.jpg">
+<meta property="og:url" content="https://wedding-invitations-i84.pages.dev/">
 <title>Majlis Akad Nikah — Mustafa Khan &amp; Nurin Natasha · 07 Ogos 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +15,7 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --maroon:#3D0A14; --maroon-deep:#24050B; --maroon-mid:#5C1220;
+  --maroon:#4A0E1C; --maroon-deep:#2A060D; --maroon-mid:#6E1628;
   --gold:#C8A055; --gold-light:#E8C97A; --gold-dark:#8B6914;
   --champagne:#F2DDB8; --cream:#FFFDF5; --ivory:#FAF6ED;
   --text:#2C1A08; --text-mid:#5A3A1A;
@@ -26,26 +28,33 @@ img{max-width:100%;display:block}
 .arabic{font-family:'Amiri',serif}
 
 /* arabesque tile */
-.arabesque{background-image:url("data:image/svg+xml,%3Csvg width='90' height='90' viewBox='0 0 90 90' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A055' stroke-opacity='.14' stroke-width='.7'%3E%3Cpath d='M45 4l11 19h22l-11 19 11 19H56L45 80 34 61H12l11-19L12 23h22z'/%3E%3Ccircle cx='45' cy='42' r='11'/%3E%3C/g%3E%3C/svg%3E")}
+.arabesque{background-image:url("data:image/svg+xml,%3Csvg width='90' height='90' viewBox='0 0 90 90' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C8A055' stroke-opacity='.22' stroke-width='.7'%3E%3Cpath d='M45 4l11 19h22l-11 19 11 19H56L45 80 34 61H12l11-19L12 23h22z'/%3E%3Ccircle cx='45' cy='42' r='11'/%3E%3C/g%3E%3C/svg%3E")}
 
 /* ===== GATE (envelope) ===== */
 #gate{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at 50% 35%,var(--maroon-mid),var(--maroon-deep) 75%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity 1s ease,visibility 1s ease;padding:1.5rem}
 #gate::before{content:'';position:absolute;inset:0;pointer-events:none}
 #gate.hide{opacity:0;visibility:hidden;pointer-events:none}
-.env{position:relative;width:min(330px,84vw);aspect-ratio:10/7;perspective:900px}
-.env-body{position:absolute;inset:0;background:linear-gradient(160deg,#FBF3E0,#EAD9B4);border:1px solid var(--gold);border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.55)}
-.env-flap{position:absolute;left:0;top:0;width:100%;height:52%;background:linear-gradient(180deg,#F6ECD4,#E3CFA3);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1.1s cubic-bezier(.6,0,.3,1);z-index:3;border-radius:6px 6px 0 0}
-.env.open .env-flap{transform:rotateX(168deg)}
-.env-card{position:absolute;left:6%;top:8%;width:88%;height:84%;background:var(--maroon);border:1px solid var(--gold);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--champagne);transition:transform 1.1s ease .55s;z-index:2}
-.env.open .env-card{transform:translateY(-26%)}
+.env{position:relative;width:min(330px,84vw);aspect-ratio:10/7;perspective:900px;margin-top:3.2rem}
+.env-body{position:absolute;inset:0;background:linear-gradient(160deg,#FBF3E0,#EAD9B4);border:1px solid var(--gold);border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.55);z-index:1}
+.env-fold{position:absolute;inset:0;z-index:3}
+.env-fold.l{background:linear-gradient(115deg,#F4E8CD,#E4CFA2);clip-path:polygon(0 0,55% 50%,0 100%);filter:drop-shadow(1px 0 1px rgba(139,105,20,.25))}
+.env-fold.r{background:linear-gradient(245deg,#F4E8CD,#E4CFA2);clip-path:polygon(100% 0,45% 50%,100% 100%);filter:drop-shadow(-1px 0 1px rgba(139,105,20,.25))}
+.env-pocket{position:absolute;left:0;right:0;top:42%;bottom:0;background:linear-gradient(170deg,#F2E5C8,#E2CD9F);clip-path:polygon(0 0,50% 20%,100% 0,100% 100%,0 100%);border-radius:0 0 6px 6px;z-index:4;box-shadow:inset 0 6px 14px rgba(139,105,20,.18)}
+.env-mono{position:absolute;left:50%;top:66%;transform:translateX(-50%);z-index:6;font-family:'Cormorant Garamond',serif;color:var(--gold-dark);letter-spacing:.3em;font-size:1.05rem;pointer-events:none}
+.env-flap{position:absolute;left:0;top:0;width:100%;height:58%;background:linear-gradient(180deg,#F6ECD4,#E0CB9C);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1.1s cubic-bezier(.6,0,.3,1),opacity .5s ease .85s;z-index:5;border-radius:6px 6px 0 0;filter:drop-shadow(0 2px 2px rgba(139,105,20,.3))}
+.env.open .env-flap{transform:rotateX(168deg);opacity:0}
+.env-card{position:absolute;left:6%;top:6%;width:88%;height:88%;background:var(--maroon);border:1px solid var(--gold);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:11%;gap:.5rem;color:var(--champagne);transition:transform 1.15s cubic-bezier(.5,0,.25,1) .5s;z-index:2}
+.env.open .env-card{transform:translateY(-72%)}
 .env-card .arabic{font-size:1.15rem;color:var(--gold-light)}
 .env-card .n{font-family:'Cormorant Garamond',serif;font-size:1.35rem;letter-spacing:.12em}
 .env-card small{letter-spacing:.3em;font-size:.6rem;color:var(--gold)}
-.seal{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7B1B2C,#4A0E1C 70%);border:2px solid rgba(232,201,122,.6);color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:.05em;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;box-shadow:0 6px 18px rgba(0,0,0,.5), inset 0 0 14px rgba(0,0,0,.45);transition:transform .3s,opacity .5s}
+.seal{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7B1B2C,#4A0E1C 70%);border:2px solid rgba(232,201,122,.6);color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1.05rem;letter-spacing:.05em;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:7;box-shadow:0 6px 18px rgba(0,0,0,.5), inset 0 0 14px rgba(0,0,0,.45);transition:transform .3s,opacity .5s}
 .seal:hover{transform:translate(-50%,-50%) scale(1.06)}
 .env.open .seal{opacity:0;pointer-events:none}
 #gate .gtitle{color:var(--champagne);font-family:'Cormorant Garamond',serif;font-size:1.15rem;letter-spacing:.32em;text-transform:uppercase;text-align:center}
 #gate .ghint{color:var(--gold);font-size:.85rem;letter-spacing:.2em;animation:pulse 2.4s infinite}
+#gate .gtitle,#gate .ghint{transition:opacity .6s}
+#gate.opening .gtitle,#gate.opening .ghint{opacity:0}
 @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
 
 /* ===== NAV ===== */
@@ -103,6 +112,10 @@ h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-
 .drow p{font-size:.92rem;color:var(--text-mid);line-height:1.6}
 .attire{display:flex;align-items:center;gap:.8rem;justify-content:center;margin-top:.4rem}
 .swatch{width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);background:#FFF3B8}
+
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
+.pill{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--maroon);border:1px solid var(--gold);border-radius:50px;padding:.42rem .85rem;background:var(--ivory);transition:.3s}
+.pill:hover{background:var(--maroon);color:var(--champagne)}
 
 /* ===== PROGRAMME ===== */
 .prog{list-style:none;max-width:430px;margin:0 auto;position:relative;padding-left:1.6rem}
@@ -200,9 +213,13 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 <div id="gate" class="arabesque">
   <div class="gtitle">Walimatul Urus<br><span style="font-size:.7em;color:var(--gold)">Mustafa Khan &amp; Nurin Natasha</span></div>
   <div class="env" id="env">
-    <div class="env-card"><span class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span class="n">M &amp; N</span><small>07 · OGOS · 2026</small></div>
-    <div class="env-flap"></div>
     <div class="env-body"></div>
+    <div class="env-card"><span class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span class="n">M &amp; N</span><small>07 · OGOS · 2026</small></div>
+    <div class="env-fold l"></div>
+    <div class="env-fold r"></div>
+    <div class="env-pocket"></div>
+    <div class="env-mono">M ♥ N</div>
+    <div class="env-flap"></div>
     <button class="seal" id="seal" aria-label="Buka jemputan">Buka</button>
   </div>
   <div class="ghint">Sentuh untuk membuka jemputan</div>
@@ -260,7 +277,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
     <div class="drow"><div class="ic">✦</div><div><h4>Tarikh</h4><p>Jumaat, 07 / Ogos / 2026</p></div></div>
     <div class="drow"><div class="ic">◷</div><div><h4>Masa</h4><p>9.00 pagi hingga 10.30 pagi</p></div></div>
     <div class="drow"><div class="ic">⚲</div><div><h4>Tempat</h4><p>Masjid Al-Muttaqin Dusun Tua<br>KJ86 Masjid Al-Muttaqin<br>43100 Hulu Langat, Selangor</p></div></div>
-    <div class="drow"><div class="ic">❀</div><div><h4>Tema Pakaian</h4><p>Baby Yellow · tiada fesyen khusus, kehadiran anda yang utama</p><div class="attire"><span class="swatch"></span><span style="font-size:.85rem;color:var(--text-mid)">Baby Yellow</span></div></div></div>
+    <div class="drow"><div class="ic">❀</div><div><h4>Tema Pakaian</h4><p>Baby Yellow · tiada fesyen khusus, kehadiran anda yang utama</p><div class="attire"><span class="swatch"></span><span style="font-size:.85rem;color:var(--text-mid)">Baby Yellow</span></div><div class="pills"><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+kurung+baby+yellow">Wanita · Baju Kurung</a><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+melayu+baby+yellow">Lelaki · Baju Melayu</a></div></div></div>
   </div>
   <div class="mbtns">
     <a class="obtn" id="gcal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis%20Akad%20Nikah%20Mustafa%20Khan%20%26%20Nurin%20Natasha&dates=20260807T010000Z/20260807T023000Z&details=Majlis%20Akad%20Nikah%20Mustafa%20Khan%20%26%20Nurin%20Natasha&location=Masjid%20Al-Muttaqin%20Dusun%20Tua%2C%2043100%20Hulu%20Langat%2C%20Selangor">Google Calendar</a>
@@ -309,7 +326,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
       <input class="fi" id="fphone" type="tel" placeholder="Contoh: 012-3456789" autocomplete="tel" required>
       <label class="fl">Kehadiran</label>
       <div class="att">
-        <label id="lhadir"><input type="radio" name="att" value="Hadir">Hadir, InsyaAllah</label>
+        <label id="lhadir"><input type="radio" name="att" value="Hadir">Hadir</label>
         <label id="ltidak"><input type="radio" name="att" value="Tidak Hadir">Tidak Dapat Hadir</label>
       </div>
       <div id="paxwrap">
@@ -327,9 +344,9 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
       <p class="note">Mohon maklum balas sebelum 20 Julai 2026.</p>
     </form>
     <div id="fok">
-      <div class="arabic">جَزَاكُمُ اللهُ خَيْرًا</div>
+      <div style="font-size:1.5rem;color:var(--gold-dark)">❦</div>
       <h3>Terima kasih, <span id="okname"></span>!</h3>
-      <p style="color:var(--text-mid);font-size:.95rem">Maklum balas anda telah diterima. Semoga bertemu di majlis nanti, InsyaAllah.</p>
+      <p style="color:var(--text-mid);font-size:.95rem">Maklum balas anda telah diterima. Semoga bertemu di majlis nanti.</p>
     </div>
   </div>
   </div>
@@ -394,7 +411,7 @@ const CONFIG={
 /* gate */
 const gate=document.getElementById('gate'),env=document.getElementById('env'),bgm=document.getElementById('bgm'),mbtn=document.getElementById('mbtn');
 document.getElementById('seal').addEventListener('click',()=>{
-  env.classList.add('open');
+  env.classList.add('open');gate.classList.add('opening');
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},1500);
 });
