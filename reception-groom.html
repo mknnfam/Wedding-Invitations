@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#7A2D3E">
+<meta property="og:title" content="Wedding Reception — Mustafa Khan &amp; Nurin Natasha">
+<meta property="og:description" content="Saturday · 08 / August / 2026 · PICC Putrajaya">
+<title>Wedding Reception — Mustafa Khan &amp; Nurin Natasha · 08 August 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Lora:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FBF5EC; --cream-deep:#F3E8D8; --ivory:#FFFCF6;
+  --sakura:#F2B8C6; --sakura-soft:#FADEE5; --rose:#C2566E; --rose-deep:#7A2D3E;
+  --gold:#C49A4F; --gold-light:#E3C88F;
+  --text:#4A2630; --text-mid:#8A5A64;
+  --line:rgba(196,154,79,.32);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Lora',Georgia,serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+img{max-width:100%;display:block}
+.disp{font-family:'Italiana',serif}
+.script{font-family:'Pinyon Script',cursive}
+
+/* paisley tile */
+.paisley{background-image:url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23C49A4F' stroke-opacity='.16' stroke-width='.8'%3E%3Cpath d='M30 60c0-18 14-30 26-26 10 3 12 16 4 22-7 5-16 2-16-6'/%3E%3Cpath d='M90 100c0-18 14-30 26-26' transform='rotate(180 90 88)'/%3E%3Ccircle cx='90' cy='30' r='4'/%3E%3Ccircle cx='30' cy='100' r='4'/%3E%3C/g%3E%3C/svg%3E")}
+
+/* ===== GATE: parting floral curtains ===== */
+#gate{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;transition:opacity .9s ease .9s,visibility .9s ease .9s}
+#gate.hide{opacity:0;visibility:hidden;pointer-events:none}
+.curtain{position:absolute;top:0;bottom:0;width:51%;background:linear-gradient(180deg,var(--rose-deep),var(--rose));transition:transform 1.4s cubic-bezier(.7,0,.3,1)}
+.curtain.l{left:0;border-right:2px solid var(--gold-light)}
+.curtain.r{right:0;border-left:2px solid var(--gold-light)}
+.curtain::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23E3C88F' stroke-opacity='.22' stroke-width='.8'%3E%3Cpath d='M20 40c0-12 9-20 17-17 7 2 8 11 3 15-5 3-11 1-11-4'/%3E%3Ccircle cx='60' cy='20' r='2.5'/%3E%3Ccircle cx='60' cy='60' r='2.5'/%3E%3C/g%3E%3C/svg%3E")}
+#gate.opening .curtain.l{transform:translateX(-102%)}
+#gate.opening .curtain.r{transform:translateX(102%)}
+.gate-inner{position:relative;z-index:3;text-align:center;color:var(--cream);padding:1.5rem;transition:opacity .8s}
+#gate.opening .gate-inner{opacity:0}
+.gate-inner .script{font-size:2.2rem;color:var(--gold-light)}
+.gate-inner h1{font-family:'Italiana',serif;font-size:clamp(1.8rem,7vw,2.6rem);letter-spacing:.12em;margin:.6rem 0;text-transform:uppercase}
+.gate-inner p{letter-spacing:.32em;font-size:.75rem;color:var(--sakura-soft);text-transform:uppercase}
+#opengate{margin-top:2rem;padding:.95rem 2.6rem;border-radius:50px;border:1px solid var(--gold-light);background:transparent;color:var(--gold-light);font-family:'Lora',serif;font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;transition:.35s}
+#opengate:hover{background:var(--gold-light);color:var(--rose-deep)}
+.garland{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-around;z-index:4;pointer-events:none}
+.garland i{width:2px;background:linear-gradient(var(--gold-light),transparent);display:block;position:relative;animation:sway 4s ease-in-out infinite}
+.garland i::after{content:'❀';position:absolute;bottom:-12px;left:-7px;color:var(--sakura);font-size:1rem;font-style:normal}
+.garland i:nth-child(odd){animation-delay:1.2s}
+@keyframes sway{0%,100%{transform:rotate(2deg)}50%{transform:rotate(-2deg)}}
+
+/* ===== NAV ===== */
+#nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.1rem;transition:transform .4s,background .4s,box-shadow .4s;transform:translateY(-110%)}
+#nav.show{transform:translateY(0)}
+#nav.solid{background:rgba(251,245,236,.94);backdrop-filter:blur(10px);box-shadow:0 2px 14px rgba(122,45,62,.12)}
+#nav .mono{font-family:'Italiana',serif;color:var(--rose-deep);font-size:1.1rem;letter-spacing:.18em}
+#nav ul{display:flex;gap:1.4rem;list-style:none}
+#nav a{color:var(--text);text-decoration:none;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+#nav a:hover{color:var(--rose)}
+#burger{display:none;background:none;border:none;color:var(--rose-deep);font-size:1.5rem;cursor:pointer;line-height:1}
+@media(max-width:760px){
+  #nav ul{position:fixed;top:52px;right:0;flex-direction:column;background:rgba(255,252,246,.98);padding:1.4rem 2rem;gap:1.1rem;transform:translateX(110%);transition:transform .35s;border-left:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 0 0 12px}
+  #nav ul.open{transform:translateX(0)}
+  #burger{display:block}
+}
+
+main{opacity:0;transition:opacity 1s ease .5s}
+body.opened main{opacity:1}
+section{padding:4.5rem 1.4rem;max-width:680px;margin:0 auto}
+.eyebrow{text-align:center;letter-spacing:.34em;text-transform:uppercase;font-size:.68rem;color:var(--rose);margin-bottom:.9rem}
+h2{font-family:'Italiana',serif;font-size:2rem;text-align:center;color:var(--rose-deep);margin-bottom:1.6rem;letter-spacing:.06em}
+.note{font-size:.85rem;font-style:italic;color:var(--text-mid);text-align:center;margin-top:1rem}
+
+/* ===== HERO ===== */
+#home{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:none;padding:6rem 1.5rem 4rem;background:linear-gradient(180deg,var(--ivory),var(--cream) 60%,var(--cream-deep))}
+.arch{position:relative;max-width:540px;margin:0 auto;padding:3rem 1.7rem 2.6rem;border:1.5px solid var(--gold);border-radius:230px 230px 18px 18px;background:rgba(255,252,246,.7)}
+.arch::before{content:'';position:absolute;inset:9px;border:1px solid var(--sakura);border-radius:220px 220px 12px 12px;pointer-events:none}
+.arch .script{font-size:1.9rem;color:var(--rose)}
+.hosttxt{font-size:.92rem;line-height:1.85;color:var(--text-mid);margin-top:.8rem}
+.hostnames{font-family:'Italiana',serif;font-size:1.2rem;letter-spacing:.2em;color:var(--rose-deep);margin:.5rem 0;text-transform:uppercase}
+.couple{font-family:'Italiana',serif;font-size:clamp(2rem,8vw,2.9rem);line-height:1.2;color:var(--rose-deep);margin:1rem 0;letter-spacing:.04em}
+.amp{font-family:'Pinyon Script',cursive;color:var(--gold);font-size:.65em;display:block;margin:.3rem 0}
+.hero-date{letter-spacing:.24em;font-size:1rem;color:var(--rose);margin-top:1rem}
+.hero-venue{font-size:.82rem;letter-spacing:.16em;color:var(--text-mid);margin-top:.4rem;text-transform:uppercase}
+.scrolldown{margin-top:2.2rem;color:var(--rose);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;animation:pulse 2.6s infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ===== COUNTDOWN ===== */
+#count{background:var(--ivory);max-width:none}
+.cd-wrap{display:flex;justify-content:center;gap:.9rem;max-width:560px;margin:0 auto}
+.cd{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:1rem .4rem;text-align:center;box-shadow:0 4px 16px rgba(122,45,62,.07)}
+.cd b{display:block;font-family:'Italiana',serif;font-size:2rem;color:var(--rose-deep)}
+.cd span{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-mid)}
+
+/* ===== shared cards ===== */
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.8rem 1.5rem;box-shadow:0 6px 24px rgba(122,45,62,.07);margin-bottom:1.2rem}
+.drow{display:flex;gap:1rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px dashed var(--line)}
+.drow:last-child{border-bottom:none}
+.drow .ic{flex:0 0 34px;height:34px;border-radius:50%;border:1px solid var(--gold);color:var(--rose);display:flex;align-items:center;justify-content:center;font-size:.95rem;background:var(--sakura-soft)}
+.drow h4{font-family:'Italiana',serif;font-size:1.1rem;color:var(--rose-deep);letter-spacing:.08em}
+.drow p{font-size:.92rem;color:var(--text-mid);line-height:1.6}
+
+/* programme */
+.prog{list-style:none;max-width:430px;margin:0 auto;position:relative;padding-left:1.6rem}
+.prog::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(var(--rose),transparent)}
+.prog li{position:relative;padding:0 0 1.4rem 1rem}
+.prog li::before{content:'❀';position:absolute;left:-1.85rem;top:0;color:var(--sakura);font-size:.95rem}
+.prog time{font-family:'Italiana',serif;color:var(--rose-deep);font-size:1.05rem;letter-spacing:.06em;display:block}
+.prog span{font-size:.92rem;color:var(--text-mid)}
+
+/* gallery */
+#gallery{max-width:760px}
+.car{position:relative}
+.track{display:flex;gap:.9rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:.4rem}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 72%;max-width:330px;aspect-ratio:3/4;scroll-snap-align:center;border-radius:170px 170px 14px 14px;overflow:hidden;border:1px solid var(--line);background:var(--ivory);box-shadow:0 8px 26px rgba(122,45,62,.12)}
+.slide img{width:100%;height:100%;object-fit:cover}
+@media(min-width:700px){.slide{flex-basis:44%}}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid var(--gold);background:rgba(255,252,246,.94);color:var(--rose-deep);cursor:pointer;font-size:1rem;z-index:2}
+.car-btn.prev{left:-6px}.car-btn.next{right:-6px}
+.dots{display:flex;gap:.45rem;justify-content:center;margin-top:1rem}
+.dots button{width:8px;height:8px;border-radius:50%;border:1px solid var(--rose);background:transparent;cursor:pointer;padding:0}
+.dots button.on{background:var(--rose)}
+
+/* rsvp */
+.form-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:2rem 1.5rem;box-shadow:0 8px 28px rgba(122,45,62,.09)}
+.fl{display:block;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose);margin:1.1rem 0 .4rem}
+.fi,textarea.fi{width:100%;padding:.8rem .95rem;border:1px solid var(--line);border-radius:10px;background:var(--ivory);font-family:inherit;font-size:1rem;color:var(--text)}
+.fi:focus{outline:2px solid var(--sakura);outline-offset:1px}
+textarea.fi{min-height:90px;resize:vertical}
+.att{display:flex;gap:.8rem}
+.att label{flex:1;border:1px solid var(--line);border-radius:10px;padding:.8rem;text-align:center;cursor:pointer;font-size:.92rem;background:var(--ivory);transition:.25s}
+.att input{position:absolute;opacity:0}
+.att label.on{background:var(--rose-deep);color:var(--sakura-soft);border-color:var(--rose-deep)}
+.stepper{display:flex;align-items:center;gap:1.2rem;justify-content:center;border:1px solid var(--line);border-radius:10px;padding:.5rem;background:var(--ivory)}
+.stepper button{width:38px;height:38px;border-radius:50%;border:1px solid var(--gold);background:#fff;color:var(--rose-deep);font-size:1.2rem;cursor:pointer}
+.stepper b{font-family:'Italiana',serif;font-size:1.5rem;min-width:2ch;text-align:center;color:var(--rose-deep)}
+#paxwrap.off{display:none}
+.btn{display:block;width:100%;margin-top:1.4rem;padding:1rem;border:none;border-radius:50px;background:linear-gradient(120deg,var(--rose-deep),var(--rose));color:#FFF3F6;font-family:'Lora',serif;font-size:.92rem;letter-spacing:.26em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.btn:hover{filter:brightness(1.12)}
+.btn[disabled]{opacity:.55;cursor:wait}
+#ferr{color:#8E1B1B;font-size:.88rem;text-align:center;margin-top:.8rem;display:none}
+#fok{display:none;text-align:center;padding:1.5rem 0}
+#fok .script{font-size:2rem;color:var(--rose)}
+#fok h3{font-family:'Italiana',serif;color:var(--rose-deep);font-size:1.4rem;margin:.6rem 0 .3rem}
+
+/* salam kaut */
+#gift{max-width:480px;text-align:center}
+.qrbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1.8rem;box-shadow:0 8px 28px rgba(122,45,62,.09)}
+.qrbox img{width:200px;height:200px;object-fit:contain;margin:0 auto;border:1px solid var(--line);border-radius:12px;padding:8px;background:#fff}
+.qrbox .acc{font-family:'Italiana',serif;font-size:1.15rem;color:var(--rose-deep);margin-top:1rem;letter-spacing:.08em}
+
+/* contacts */
+.cgrid{display:grid;gap:.9rem}
+.crow{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem}
+.crow .nm{font-family:'Italiana',serif;font-size:1.1rem;color:var(--rose-deep);letter-spacing:.04em}
+.crow .nm small{display:block;font-family:'Lora',serif;font-size:.78rem;color:var(--text-mid);letter-spacing:.08em}
+.cbtns{display:flex;gap:.5rem}
+.cbtns a{width:38px;height:38px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1rem;color:var(--rose);background:var(--sakura-soft)}
+
+/* location */
+.map{border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 8px 28px rgba(122,45,62,.09)}
+.map iframe{width:100%;height:300px;border:0;display:block}
+.mbtns{display:flex;gap:.8rem;margin-top:1rem;flex-wrap:wrap;justify-content:center}
+.obtn{flex:1;min-width:200px;text-align:center;text-decoration:none;padding:.9rem 1rem;border-radius:50px;border:1px solid var(--rose);color:var(--rose-deep);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;background:#fff;transition:.3s}
+.obtn:hover{background:var(--rose-deep);color:var(--sakura-soft);border-color:var(--rose-deep)}
+
+/* closing */
+#closing{background:linear-gradient(180deg,var(--rose-deep),#56202D);color:var(--sakura-soft);max-width:none;text-align:center}
+#closing .inner{max-width:560px;margin:0 auto}
+#closing .script{font-size:2.1rem;color:var(--gold-light)}
+#closing p{font-style:italic;line-height:1.9;font-size:.98rem;margin-top:1rem;color:#F3D6DD}
+footer{background:#421722;color:#C99AA5;text-align:center;font-size:.7rem;letter-spacing:.22em;padding:1.4rem;text-transform:uppercase}
+
+#mbtn{position:fixed;right:1rem;bottom:1rem;z-index:650;width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);background:rgba(122,45,62,.93);color:var(--gold-light);font-size:1.05rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#mbtn.playing{animation:spinp 6s linear infinite}
+@keyframes spinp{to{transform:rotate(360deg)}}
+#pcanvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  #pcanvas{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="pcanvas" aria-hidden="true"></canvas>
+
+<!-- GATE -->
+<div id="gate">
+  <div class="curtain l"></div>
+  <div class="curtain r"></div>
+  <div class="garland"><i style="height:60px"></i><i style="height:90px"></i><i style="height:50px"></i><i style="height:80px"></i><i style="height:55px"></i><i style="height:95px"></i><i style="height:65px"></i></div>
+  <div class="gate-inner">
+    <div class="script">The Wedding Reception of</div>
+    <h1>Mustafa Khan<br>&amp; Nurin Natasha</h1>
+    <p>08 · August · 2026 · PICC Putrajaya</p>
+    <button id="opengate">Open Invitation</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav" aria-label="Navigation">
+  <span class="mono">M ♥ N</span>
+  <button id="burger" aria-label="Menu">☰</button>
+  <ul id="navlinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#details">Details</a></li>
+    <li><a href="#programme">Programme</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#rsvp">RSVP</a></li>
+    <li><a href="#location">Location</a></li>
+  </ul>
+</nav>
+
+<button id="mbtn" aria-label="Music">♪</button>
+<audio id="bgm" src="music-reception-groom.mp3" loop preload="none"></audio>
+
+<main>
+
+<!-- HERO -->
+<section id="home" class="paisley">
+  <div class="arch">
+    <div class="script">Together with their families</div>
+    <p class="hostnames">Nawaz Khan &amp; Siti Raha</p>
+    <p class="hosttxt">request the honour of your presence<br>at the wedding reception of their beloved children</p>
+    <h1 class="couple">Mustafa Khan<span class="amp">and</span>Nurin Natasha</h1>
+    <p class="hero-date">SATURDAY · 08 / AUGUST / 2026</p>
+    <p class="hero-venue">Putrajaya International<br>Convention Centre (PICC)</p>
+  </div>
+  <div class="scrolldown">Scroll Down</div>
+</section>
+
+<!-- COUNTDOWN -->
+<section id="count">
+  <p class="eyebrow">Counting the Days</p>
+  <div class="cd-wrap">
+    <div class="cd"><b id="cdd">0</b><span>Days</span></div>
+    <div class="cd"><b id="cdh">0</b><span>Hours</span></div>
+    <div class="cd"><b id="cdm">0</b><span>Minutes</span></div>
+    <div class="cd"><b id="cds">0</b><span>Seconds</span></div>
+  </div>
+</section>
+
+<!-- DETAILS -->
+<section id="details">
+  <p class="eyebrow">The Celebration</p>
+  <h2>Reception Details</h2>
+  <div class="card">
+    <div class="drow"><div class="ic">✦</div><div><h4>Date</h4><p>Saturday, 08 / August / 2026</p></div></div>
+    <div class="drow"><div class="ic">◷</div><div><h4>Time</h4><p>6.30 PM until 10.30 PM</p></div></div>
+    <div class="drow"><div class="ic">⚲</div><div><h4>Venue</h4><p>Putrajaya International Convention Centre (PICC)<br>Presint 5, 62000 Putrajaya</p></div></div>
+    <div class="drow"><div class="ic">❀</div><div><h4>Dress Code</h4><p>Bollywood glamour or Batik traditional wear · any colour you love</p></div></div>
+  </div>
+  <div class="mbtns">
+    <a class="obtn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Reception%20of%20Mustafa%20Khan%20%26%20Nurin%20Natasha&dates=20260808T103000Z/20260808T143000Z&details=Wedding%20Reception%20of%20Mustafa%20Khan%20%26%20Nurin%20Natasha&location=Putrajaya%20International%20Convention%20Centre%2C%20Presint%205%2C%2062000%20Putrajaya">Google Calendar</a>
+    <a class="obtn" href="#" id="ics">Download Reminder (.ics)</a>
+  </div>
+  <p class="note">The .ics file includes automatic reminders 1 month and 2 weeks before the reception.</p>
+</section>
+
+<!-- PROGRAMME -->
+<section id="programme" style="background:var(--ivory);max-width:none">
+  <div style="max-width:560px;margin:0 auto">
+  <p class="eyebrow">Programme</p>
+  <h2>Order of the Evening</h2>
+  <ul class="prog">
+    <li><time>6.30 PM</time><span>Guest Arrival</span></li>
+    <li><time>7.30 PM</time><span>Grand Entrance of the Bride &amp; Groom</span></li>
+    <li><time>8.00 PM</time><span>Dinner Is Served</span></li>
+    <li><time>9.00 PM</time><span>Cake Cutting &amp; Speeches</span></li>
+    <li><time>9.45 PM</time><span>Photo Session with the Newlyweds</span></li>
+    <li><time>10.30 PM</time><span>End of Reception</span></li>
+  </ul>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <p class="eyebrow">Gallery</p>
+  <h2>Our Engagement Moments</h2>
+  <div class="car">
+    <button class="car-btn prev" id="cprev" aria-label="Previous">‹</button>
+    <div class="track" id="ctrack"></div>
+    <button class="car-btn next" id="cnext" aria-label="Next">›</button>
+    <div class="dots" id="cdots"></div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section id="rsvp" style="background:var(--ivory);max-width:none">
+  <div style="max-width:560px;margin:0 auto">
+  <p class="eyebrow">Kindly Respond</p>
+  <h2>RSVP</h2>
+  <div class="form-card">
+    <form id="rform" novalidate>
+      <label class="fl" for="fname">Full Name</label>
+      <input class="fi" id="fname" type="text" placeholder="Your full name" autocomplete="name" required>
+      <label class="fl" for="fphone">Phone Number</label>
+      <input class="fi" id="fphone" type="tel" placeholder="e.g. 012-3456789" autocomplete="tel" required>
+      <label class="fl">Attendance</label>
+      <div class="att">
+        <label id="lhadir"><input type="radio" name="att" value="Hadir">Joyfully Attending</label>
+        <label id="ltidak"><input type="radio" name="att" value="Tidak Hadir">Unable to Attend</label>
+      </div>
+      <div id="paxwrap">
+        <label class="fl">Number of Guests (including you)</label>
+        <div class="stepper">
+          <button type="button" id="pmin" aria-label="Fewer">−</button>
+          <b id="pval">1</b>
+          <button type="button" id="pplus" aria-label="More">+</button>
+        </div>
+      </div>
+      <label class="fl" for="fwish">Wishes for the Couple (optional)</label>
+      <textarea class="fi" id="fwish" placeholder="Leave a message or prayer for the newlyweds"></textarea>
+      <button class="btn" id="fsub" type="submit">Send RSVP</button>
+      <p id="ferr"></p>
+      <p class="note">Kindly respond by 20 July 2026.</p>
+    </form>
+    <div id="fok">
+      <div class="script">Thank you!</div>
+      <h3>We've received your RSVP, <span id="okname"></span></h3>
+      <p style="color:var(--text-mid);font-size:.95rem">We can't wait to celebrate with you.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- GIFT -->
+<section id="gift">
+  <p class="eyebrow">Wedding Gift</p>
+  <h2>A Token of Love</h2>
+  <div class="qrbox">
+    <p style="font-size:.92rem;color:var(--text-mid);margin-bottom:1.2rem;line-height:1.7">Your presence is the greatest gift of all. Should you wish to bless the newlyweds with a token of love, kindly scan the QR code below.</p>
+    <img src="images/qr-groom.png" alt="Gift QR code" loading="lazy">
+    <p class="acc">Mustafa Khan Bin Nawaz Khan</p>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section id="contact" style="max-width:560px">
+  <p class="eyebrow">Contact</p>
+  <h2>Any Enquiries</h2>
+  <div class="cgrid">
+    <div class="crow"><div class="nm">Nawaz Khan<small>017-3753379</small></div><div class="cbtns"><a href="tel:0173753379" aria-label="Call Nawaz Khan">✆</a><a href="https://wa.me/60173753379" target="_blank" rel="noopener" aria-label="WhatsApp Nawaz Khan">✉</a></div></div>
+    <div class="crow"><div class="nm">Siti Raha<small>017-8843379</small></div><div class="cbtns"><a href="tel:0178843379" aria-label="Call Siti Raha">✆</a><a href="https://wa.me/60178843379" target="_blank" rel="noopener" aria-label="WhatsApp Siti Raha">✉</a></div></div>
+    <div class="crow"><div class="nm">Aisyah Khan<small>017-2953379</small></div><div class="cbtns"><a href="tel:0172953379" aria-label="Call Aisyah Khan">✆</a><a href="https://wa.me/60172953379" target="_blank" rel="noopener" aria-label="WhatsApp Aisyah Khan">✉</a></div></div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location" style="background:var(--ivory);max-width:none">
+  <div style="max-width:680px;margin:0 auto">
+  <p class="eyebrow">Location</p>
+  <h2>PICC Putrajaya</h2>
+  <div class="map"><iframe title="Venue map" loading="lazy" src="https://www.google.com/maps?q=Putrajaya+International+Convention+Centre&output=embed"></iframe></div>
+  <div class="mbtns">
+    <a class="obtn" href="https://share.google/SQEjQDpdO0Hg8QQHs" target="_blank" rel="noopener">Open in Google Maps</a>
+    <a class="obtn" href="https://waze.com/ul?q=Putrajaya%20International%20Convention%20Centre" target="_blank" rel="noopener">Open in Waze</a>
+  </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="inner">
+    <div class="script">With love &amp; gratitude</div>
+    <p>Thank you for being part of our story. Your presence, prayers and well wishes mean the world to us, and we look forward to celebrating this beautiful evening together.</p>
+  </div>
+</section>
+
+</main>
+<footer>Mustafa Khan ♥ Nurin Natasha · 2026</footer>
+
+<script>
+const CONFIG={
+  URL:'https://script.google.com/macros/s/AKfycbzlSS_3pDB0NwzATJFvM2ed0xlPmdsqGWoOny_Ok5hsa51u4jFO0SwvnYpfIKW5F7Sy/exec',
+  EVENT:'reception-groom',
+  SIDE:'Pihak Pengantin Lelaki',
+  TARGET:new Date('2026-08-08T18:30:00+08:00').getTime(),
+  GALLERY:10
+};
+
+const gate=document.getElementById('gate'),bgm=document.getElementById('bgm'),mbtn=document.getElementById('mbtn');
+document.getElementById('opengate').addEventListener('click',()=>{
+  gate.classList.add('opening');
+  bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
+  setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},900);
+});
+mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
+
+const nav=document.getElementById('nav'),links=document.getElementById('navlinks');
+document.getElementById('burger').addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+let lastY=0;
+addEventListener('scroll',()=>{
+  const y=scrollY;
+  nav.classList.toggle('solid',y>40);
+  if(document.body.classList.contains('opened')) nav.classList.toggle('show', y<lastY || y<120);
+  lastY=y;
+},{passive:true});
+
+function cdt(){
+  let t=CONFIG.TARGET-Date.now(); if(t<0)t=0;
+  cdd.textContent=Math.floor(t/864e5);cdh.textContent=Math.floor(t%864e5/36e5);
+  cdm.textContent=Math.floor(t%36e5/6e4);cds.textContent=Math.floor(t%6e4/1e3);
+}
+const cdd=document.getElementById('cdd'),cdh=document.getElementById('cdh'),cdm=document.getElementById('cdm'),cds=document.getElementById('cds');
+cdt();setInterval(cdt,1000);
+
+const track=document.getElementById('ctrack'),dots=document.getElementById('cdots');
+for(let i=1;i<=CONFIG.GALLERY;i++){
+  const s=document.createElement('div');s.className='slide';
+  s.innerHTML=`<img src="images/gallery-${i}.jpg" alt="Engagement photo ${i}" loading="lazy" onerror="this.closest('.slide').remove();buildDots()">`;
+  track.appendChild(s);
+}
+function buildDots(){
+  dots.innerHTML='';
+  track.querySelectorAll('.slide').forEach((_,i)=>{
+    const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));
+    b.onclick=()=>track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    dots.appendChild(b);
+  });
+  markDot();
+}
+function markDot(){
+  const sl=[...track.querySelectorAll('.slide')];if(!sl.length)return;
+  const c=track.scrollLeft+track.clientWidth/2;
+  let idx=0,best=1e9;
+  sl.forEach((s,i)=>{const m=Math.abs(s.offsetLeft+s.offsetWidth/2-c);if(m<best){best=m;idx=i;}});
+  dots.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('on',i===idx));
+}
+buildDots();
+track.addEventListener('scroll',()=>requestAnimationFrame(markDot),{passive:true});
+function slideBy(d){track.scrollBy({left:d*(track.clientWidth*0.75),behavior:'smooth'})}
+document.getElementById('cprev').onclick=()=>slideBy(-1);
+document.getElementById('cnext').onclick=()=>slideBy(1);
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  setInterval(()=>{
+    if(!document.body.classList.contains('opened'))return;
+    const max=track.scrollWidth-track.clientWidth;
+    if(track.scrollLeft>=max-10)track.scrollTo({left:0,behavior:'smooth'});
+    else slideBy(1);
+  },4500);
+}
+
+const lh=document.getElementById('lhadir'),lt=document.getElementById('ltidak'),paxwrap=document.getElementById('paxwrap'),pval=document.getElementById('pval');
+let pax=1,att='';
+function setAtt(v){
+  att=v; lh.classList.toggle('on',v==='Hadir'); lt.classList.toggle('on',v==='Tidak Hadir');
+  paxwrap.classList.toggle('off',v!=='Hadir');
+}
+lh.addEventListener('click',()=>setAtt('Hadir'));
+lt.addEventListener('click',()=>setAtt('Tidak Hadir'));
+document.getElementById('pmin').onclick=()=>{if(pax>1)pval.textContent=--pax};
+document.getElementById('pplus').onclick=()=>{if(pax<10)pval.textContent=++pax};
+document.getElementById('rform').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=document.getElementById('fname').value.trim(),
+        phone=document.getElementById('fphone').value.trim(),
+        wishes=document.getElementById('fwish').value.trim(),
+        err=document.getElementById('ferr'),btn=document.getElementById('fsub');
+  err.style.display='none';
+  if(!name||phone.replace(/\D/g,'').length<9||!att){
+    err.textContent='Please complete your name, a valid phone number and your attendance choice.';
+    err.style.display='block';return;
+  }
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    await fetch(CONFIG.URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify({name,phone,side:CONFIG.SIDE,pax:att==='Hadir'?pax:0,event:CONFIG.EVENT,attendance:att,wishes})});
+    document.getElementById('okname').textContent=name.split(' ')[0];
+    document.getElementById('rform').style.display='none';
+    document.getElementById('fok').style.display='block';
+  }catch(_){
+    err.textContent='Something went wrong. Please try again.';
+    err.style.display='block';btn.disabled=false;btn.textContent='Send RSVP';
+  }
+});
+
+document.getElementById('ics').addEventListener('click',e=>{
+  e.preventDefault();
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MKNN//Wedding//EN','BEGIN:VEVENT',
+  'UID:reception-groom-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260808T103000Z','DTEND:20260808T143000Z',
+  'SUMMARY:Wedding Reception of Mustafa Khan & Nurin Natasha',
+  'LOCATION:Putrajaya International Convention Centre (PICC)\\, Presint 5\\, 62000 Putrajaya',
+  'DESCRIPTION:Saturday 08/August/2026\\, 6.30 PM - 10.30 PM',
+  'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder 1 month before','TRIGGER:-P30D','END:VALARM',
+  'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder 2 weeks before','TRIGGER:-P14D','END:VALARM',
+  'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+  a.download='reception-mustafa-nurin.ics';a.click();URL.revokeObjectURL(a.href);
+});
+
+/* falling sakura petals */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const c=document.getElementById('pcanvas'),x=c.getContext('2d');let W,H,P=[];
+  function rs(){W=c.width=innerWidth;H=c.height=innerHeight}
+  rs();addEventListener('resize',rs);
+  for(let i=0;i<26;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*4+2.5,s:Math.random()*.5+.25,o:Math.random()*.35+.18,w:Math.random()*6.28,rot:Math.random()*6.28,rs:(Math.random()-.5)*.02});
+  (function loop(){
+    x.clearRect(0,0,W,H);
+    P.forEach(p=>{
+      p.y+=p.s;p.w+=.012;p.x+=Math.sin(p.w)*.5;p.rot+=p.rs;
+      if(p.y>H+8){p.y=-8;p.x=Math.random()*W}
+      x.save();x.translate(p.x,p.y);x.rotate(p.rot);
+      x.beginPath();x.ellipse(0,0,p.r,p.r*.62,0,0,6.28);
+      x.fillStyle=`rgba(242,184,198,${p.o})`;x.fill();x.restore();
+    });
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
+</body>
+</html>
