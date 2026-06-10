@@ -489,6 +489,8 @@ lh.addEventListener('click',()=>setAtt('Hadir'));
 lt.addEventListener('click',()=>setAtt('Tidak Hadir'));
 document.getElementById('pmin').onclick=()=>{if(pax>1)pval.textContent=--pax};
 document.getElementById('pplus').onclick=()=>{if(pax<10)pval.textContent=++pax};
+const fph=document.getElementById('fphone');
+fph.addEventListener('input',()=>{fph.value=fph.value.replace(/[^\d+\s-]/g,'')});
 document.getElementById('rform').addEventListener('submit',async e=>{
   e.preventDefault();
   const name=document.getElementById('fname').value.trim(),
@@ -496,7 +498,8 @@ document.getElementById('rform').addEventListener('submit',async e=>{
         wishes=document.getElementById('fwish').value.trim(),
         err=document.getElementById('ferr'),btn=document.getElementById('fsub');
   err.style.display='none';
-  if(!name||phone.replace(/\D/g,'').length<9||!att){
+  const pclean=phone.replace(/[\s-]/g,'');
+  if(!name||!/^\+?\d{9,12}$/.test(pclean)||!att){
     err.textContent='Please complete your name, a valid phone number and your attendance choice.';
     err.style.display='block';return;
   }
