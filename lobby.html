@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1F1109">
+<title>Admin Lobby — M ♥ N Wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#1F1109; --panel:#2E1B10; --panel2:#3B2515;
+  --gold:#D4AF6A; --gold-light:#EFD9A7; --gold-dim:#A8854C;
+  --cream:#F5E9D3; --soft:#C9B594; --line:rgba(212,175,106,.28);
+  --ok:#8FBF8F; --no:#D89090;
+}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--cream);min-height:100vh}
+.disp{font-family:'Marcellus',serif}
+header{padding:1.6rem 1.4rem 1rem;text-align:center;border-bottom:1px solid var(--line)}
+header h1{font-family:'Marcellus',serif;letter-spacing:.2em;font-size:1.3rem;color:var(--gold-light);text-transform:uppercase}
+header p{font-size:.78rem;letter-spacing:.22em;color:var(--gold-dim);text-transform:uppercase;margin-top:.3rem}
+main{max-width:980px;margin:0 auto;padding:1.4rem 1rem 4rem;display:grid;gap:1.6rem}
+h2{font-family:'Marcellus',serif;font-size:.95rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.grid{display:grid;gap:.8rem}
+@media(min-width:640px){.links{grid-template-columns:1fr 1fr}.cards{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:639px){.cards{grid-template-columns:1fr 1fr}}
+
+/* links */
+.lk{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:var(--panel);border:1px solid var(--line);padding:.9rem 1rem}
+.lk .t{font-family:'Marcellus',serif;font-size:.95rem;color:var(--gold-light);letter-spacing:.04em}
+.lk .t small{display:block;font-family:'EB Garamond',serif;font-size:.72rem;color:var(--soft);letter-spacing:.06em;word-break:break-all}
+.lk .b{display:flex;gap:.45rem;flex-shrink:0}
+.lk a,.lk button{font-family:'EB Garamond',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--gold-light);background:transparent;border:1px solid var(--gold-dim);padding:.45rem .8rem;cursor:pointer;transition:.25s}
+.lk a:hover,.lk button:hover{background:var(--gold);color:var(--bg)}
+
+/* stat cards */
+.card{background:var(--panel);border:1px solid var(--line);padding:1rem;text-align:center}
+.card b{display:block;font-family:'Marcellus',serif;font-size:1.9rem;color:var(--gold-light)}
+.card span{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);font-size:.88rem}
+th,td{padding:.6rem .7rem;text-align:left;border-bottom:1px solid rgba(212,175,106,.14)}
+th{font-family:'Marcellus',serif;font-weight:400;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);background:var(--panel2)}
+tr:last-child td{border-bottom:none}
+td.ok{color:var(--ok)}td.no{color:var(--no)}
+.scroll{overflow-x:auto;border:1px solid var(--line)}
+.scroll table{border:none;min-width:560px}
+
+/* wishes */
+.wish{background:var(--panel);border:1px solid var(--line);padding:.9rem 1rem;margin-bottom:.7rem}
+.wish p{font-style:italic;line-height:1.6;color:var(--cream)}
+.wish small{display:block;margin-top:.4rem;font-size:.72rem;letter-spacing:.1em;color:var(--gold-dim);text-transform:uppercase}
+
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}
+.toolbar .meta{font-size:.78rem;color:var(--soft);font-style:italic}
+#refresh,#logout{font-family:'EB Garamond',serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-light);background:transparent;border:1px solid var(--gold);padding:.55rem 1.1rem;cursor:pointer;transition:.25s}
+#refresh:hover{background:var(--gold);color:var(--bg)}
+#logout{border-color:var(--gold-dim);color:var(--soft)}
+#msg{text-align:center;padding:1.6rem;color:var(--soft);font-style:italic}
+
+/* key overlay */
+#keywall{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;padding:1.4rem}
+#keywall.hide{display:none}
+.kbox{max-width:380px;width:100%;background:var(--panel);border:1px solid var(--line);padding:2rem;text-align:center}
+.kbox h1{font-family:'Marcellus',serif;letter-spacing:.18em;font-size:1.1rem;color:var(--gold-light);text-transform:uppercase;margin-bottom:.4rem}
+.kbox p{font-size:.85rem;color:var(--soft);margin-bottom:1.2rem}
+.kbox input{width:100%;padding:.8rem .9rem;border:1px solid var(--line);background:var(--bg);color:var(--cream);font-family:inherit;font-size:1rem;text-align:center;letter-spacing:.2em}
+.kbox button{width:100%;margin-top:.9rem;padding:.85rem;border:1px solid var(--gold);background:var(--gold);color:var(--bg);font-family:'EB Garamond',serif;font-size:.85rem;letter-spacing:.24em;text-transform:uppercase;cursor:pointer}
+.kbox .err{color:var(--no);font-size:.82rem;margin-top:.7rem;display:none}
+</style>
+</head>
+<body>
+
+<div id="keywall">
+  <div class="kbox">
+    <h1>M ♥ N · Admin</h1>
+    <p>Enter your admin key to view RSVP statistics.</p>
+    <input id="keyin" type="password" placeholder="Admin key" autocomplete="off">
+    <button id="keygo">Enter Lobby</button>
+    <p class="err" id="keyerr">Wrong key. Try again.</p>
+  </div>
+</div>
+
+<header>
+  <h1>Wedding Admin Lobby</h1>
+  <p>Mustafa Khan ♥ Nurin Natasha · 07–08 August 2026</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Quick Links</h2>
+  <div class="grid links" id="linkgrid"></div>
+</section>
+
+<section>
+  <div class="toolbar">
+    <h2 style="margin-bottom:0">RSVP Overview</h2>
+    <div style="display:flex;gap:.5rem;align-items:center">
+      <span class="meta" id="updated"></span>
+      <button id="refresh">Refresh</button>
+      <button id="logout">Log out</button>
+    </div>
+  </div>
+  <div class="grid cards" id="totcards" style="margin-top:.9rem"></div>
+</section>
+
+<section>
+  <h2>Per Event</h2>
+  <div class="scroll"><table id="evtable">
+    <thead><tr><th>Event</th><th>Responses</th><th>Hadir</th><th>Tidak Hadir</th><th>Total Pax</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Latest Responses</h2>
+  <div class="scroll"><table id="latest">
+    <thead><tr><th>Time</th><th>Name</th><th>Phone</th><th>Event</th><th>Attendance</th><th>Pax</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <p id="msg" style="display:none"></p>
+</section>
+
+<section>
+  <h2>Wishes &amp; Doa</h2>
+  <div id="wishes"></div>
+</section>
+
+</main>
+
+<script>
+const EXEC='https://script.google.com/macros/s/AKfycbwwvE-cEB51130oocGvfykW-X9FCm-ONxeBE1LwZavK60DijlPF_IR2r_TjOmdnXROp/exec';
+const EVENTS={
+ 'nikah-groom':{label:'Nikah · Groom Side',url:'https://wedding-invitations-i84.pages.dev/'},
+ 'nikah-bride':{label:'Nikah · Bride Side',url:'https://wedding-invitations-i84.pages.dev/nikah-bride'},
+ 'reception-groom':{label:'Reception · Groom (PICC)',url:'https://wedding-invitations-i84.pages.dev/reception-groom'},
+ 'reception-bride':{label:'Reception · Bride (Camelia)',url:'https://wedding-invitations-i84.pages.dev/reception-bride'}
+};
+const EXTRA=[
+ {label:'RSVP Google Sheet',url:'https://docs.google.com/spreadsheets/d/1fbAtlRJuTDoD1QGYV8djFEi_s_rs0QJrh_NQhrdhJjc/edit?pli=1&gid=361089027#gid=361089027'},
+ {label:'GitHub Repo',url:'https://github.com/mknnfam/Wedding-Invitations'},
+ {label:'Cloudflare Dashboard',url:'https://dash.cloudflare.com'}
+];
+
+/* quick links */
+const lg=document.getElementById('linkgrid');
+function addLink(label,url,copyable){
+  const d=document.createElement('div');d.className='lk';
+  d.innerHTML=`<div class="t">${label}<small>${url}</small></div>
+  <div class="b"><a href="${url}" target="_blank" rel="noopener">Open</a>${copyable?'<button>Copy</button>':''}</div>`;
+  if(copyable)d.querySelector('button').onclick=ev=>{
+    navigator.clipboard.writeText(url).then(()=>{ev.target.textContent='Copied!';setTimeout(()=>ev.target.textContent='Copy',1500)});
+  };
+  lg.appendChild(d);
+}
+Object.values(EVENTS).forEach(e=>addLink(e.label,e.url,true));
+EXTRA.forEach(e=>addLink(e.label,e.url,false));
+
+/* key wall */
+const wall=document.getElementById('keywall'),keyin=document.getElementById('keyin'),keyerr=document.getElementById('keyerr');
+let KEY=localStorage.getItem('mknn_admin_key')||'';
+function tryEnter(){
+  const k=keyin.value.trim();
+  if(!k)return;
+  KEY=k;load(true);
+}
+document.getElementById('keygo').onclick=tryEnter;
+keyin.addEventListener('keydown',e=>{if(e.key==='Enter')tryEnter()});
+document.getElementById('logout').onclick=()=>{localStorage.removeItem('mknn_admin_key');location.reload()};
+document.getElementById('refresh').onclick=()=>load(false);
+
+/* data */
+function fmtTime(iso){
+  const d=new Date(iso);
+  if(isNaN(d))return '';
+  return d.toLocaleString('en-MY',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+}
+async function load(fromWall){
+  if(!KEY){wall.classList.remove('hide');return;}
+  try{
+    const r=await fetch(EXEC+'?key='+encodeURIComponent(KEY));
+    const j=await r.json();
+    if(!j.ok){
+      localStorage.removeItem('mknn_admin_key');KEY='';
+      wall.classList.remove('hide');
+      if(fromWall===false||fromWall===true){keyerr.style.display='block';}
+      return;
+    }
+    localStorage.setItem('mknn_admin_key',KEY);
+    wall.classList.add('hide');keyerr.style.display='none';
+    render(j.rows||[]);
+    document.getElementById('updated').textContent='Updated '+new Date().toLocaleTimeString();
+  }catch(e){
+    document.getElementById('msg').style.display='block';
+    document.getElementById('msg').textContent='Could not reach the RSVP script. Check your connection and that the script is deployed with access "Anyone".';
+  }
+}
+function render(rows){
+  // rows: [Timestamp,Name,Phone,Side,Pax,Event,Attendance,Wishes]
+  const per={};Object.keys(EVENTS).forEach(k=>per[k]={n:0,h:0,t:0,pax:0});
+  let N=0,H=0,T=0,PAX=0;
+  rows.forEach(r=>{
+    const ev=String(r[5]||'').trim(),att=String(r[6]||'').trim(),pax=Number(r[4])||0;
+    N++;att==='Hadir'?H++:T++;
+    if(att==='Hadir')PAX+=pax;
+    if(per[ev]){per[ev].n++;att==='Hadir'?per[ev].h++:per[ev].t++;if(att==='Hadir')per[ev].pax+=pax;}
+  });
+  document.getElementById('totcards').innerHTML=
+    `<div class="card"><b>${N}</b><span>Responses</span></div>
+     <div class="card"><b>${H}</b><span>Hadir</span></div>
+     <div class="card"><b>${T}</b><span>Tidak Hadir</span></div>
+     <div class="card"><b>${PAX}</b><span>Total Pax</span></div>`;
+  document.querySelector('#evtable tbody').innerHTML=Object.keys(EVENTS).map(k=>
+    `<tr><td>${EVENTS[k].label}</td><td>${per[k].n}</td><td class="ok">${per[k].h}</td><td class="no">${per[k].t}</td><td>${per[k].pax}</td></tr>`).join('');
+  const sorted=[...rows].sort((a,b)=>new Date(b[0])-new Date(a[0]));
+  document.querySelector('#latest tbody').innerHTML=sorted.slice(0,20).map(r=>{
+    const ev=EVENTS[String(r[5]||'').trim()],att=String(r[6]||'');
+    return `<tr><td>${fmtTime(r[0])}</td><td>${esc(r[1])}</td><td>${esc(String(r[2]||'').replace(/^'/,''))}</td><td>${ev?ev.label:esc(r[5])}</td><td class="${att==='Hadir'?'ok':'no'}">${esc(att)}</td><td>${r[4]||0}</td></tr>`;
+  }).join('')||'<tr><td colspan="6" style="text-align:center;color:var(--soft);font-style:italic">No responses yet</td></tr>';
+  const ws=sorted.filter(r=>String(r[7]||'').trim());
+  document.getElementById('wishes').innerHTML=ws.length?ws.map(r=>
+    `<div class="wish"><p>"${esc(r[7])}"</p><small>${esc(r[1])} · ${EVENTS[String(r[5]||'').trim()]?.label||esc(r[5])}</small></div>`).join('')
+    :'<p style="color:var(--soft);font-style:italic">No wishes yet.</p>';
+}
+function esc(x){const d=document.createElement('div');d.textContent=x==null?'':String(x);return d.innerHTML;}
+
+/* boot */
+if(KEY){load(undefined);}else{wall.classList.remove('hide');}
+</script>
+</body>
+</html>
