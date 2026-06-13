@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#4A0E1C">
 <meta property="og:title" content="Jemputan Majlis Akad Nikah — Mustafa Khan &amp; Nurin Natasha">
-<meta property="og:description" content="Jumaat · 07 / Ogos / 2026 · Masjid Al-Muttaqin Dusun Tua, Hulu Langat">
+<meta property="og:description" content="Jumaat · 07 . Ogos . 2026 · Masjid Al-Muttaqin Dusun Tua, Hulu Langat">
 <meta property="og:image" content="https://wedding-invitations-i84.pages.dev/images/hero.jpg">
 <meta property="og:url" content="https://wedding-invitations-i84.pages.dev/">
 <title>Majlis Akad Nikah — Mustafa Khan &amp; Nurin Natasha · 07 Ogos 2026</title>
@@ -75,6 +75,20 @@ img{max-width:100%;display:block}
 /* ===== LAYOUT ===== */
 main{opacity:0;transition:opacity 1s ease .3s}
 body.opened main{opacity:1}
+
+/* ===== SCROLL LOCK until opened ===== */
+body:not(.opened){overflow:hidden;height:100svh}
+/* ===== STICKY BOTTOM BAR (mobile) ===== */
+#botbar{position:fixed;left:0;right:0;bottom:0;z-index:640;display:none;align-items:stretch;justify-content:space-around;background:rgba(36,5,11,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(0,0,0,.22);padding:.35rem .2rem;padding-bottom:max(.35rem,env(safe-area-inset-bottom))}
+#botbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:.18rem;text-decoration:none;color:var(--champagne);padding:.4rem .1rem;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.82;transition:opacity .25s,color .25s}
+#botbar a .bi{font-size:1.15rem;line-height:1}
+#botbar a:active,#botbar a.on{opacity:1;color:var(--gold-light)}
+body.opened #botbar{display:none}
+@media(max-width:760px){
+  body.opened #botbar{display:flex}
+  body.opened main{padding-bottom:4.2rem}
+}
+
 section{padding:4.5rem 1.4rem;max-width:680px;margin:0 auto}
 .eyebrow{text-align:center;letter-spacing:.34em;text-transform:uppercase;font-size:.68rem;color:var(--gold-dark);margin-bottom:.9rem}
 h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-align:center;color:var(--maroon);margin-bottom:1.6rem}
@@ -199,6 +213,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 @keyframes spinp{to{transform:rotate(360deg)}}
 
 #pcanvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+@media(max-width:760px){body.opened #mbtn{bottom:calc(4.7rem + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   #pcanvas{display:none}
@@ -242,6 +257,9 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 <button id="mbtn" aria-label="Muzik">♪</button>
 <audio id="bgm" src="music-nikah-groom.mp3" loop preload="none"></audio>
 
+
+<nav id="botbar" aria-label="Quick navigation"><a href="#lokasi"><span class="bi" aria-hidden="true">📍</span><span>Lokasi</span></a><a href="#aturcara"><span class="bi" aria-hidden="true">🗓</span><span>Aturcara</span></a><a href="#rsvp"><span class="bi" aria-hidden="true">✉</span><span>RSVP</span></a><a href="#salam"><span class="bi" aria-hidden="true">🎁</span><span>Salam</span></a><a href="#hubungi"><span class="bi" aria-hidden="true">✆</span><span>Hubungi</span></a></nav>
+
 <main>
 
 <!-- HERO -->
@@ -249,10 +267,10 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
   <div class="frame">
     <div class="bismillah arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
     <p class="hosttxt">Dengan penuh kesyukuran ke hadrat Ilahi, kami</p>
-    <p class="hostnames">NAWAZ KHAN<br><span style="font-size:.75em;letter-spacing:.3em">&amp;</span><br>SITI RAHA</p>
+    <p class="hostnames">NAWAZ KHAN BIN AZAM KHAN<br><span style="font-size:.75em;letter-spacing:.3em">&amp;</span><br>SITI RAHA BINTI MOHAMMAD ISHTIAQ</p>
     <p class="invite-line">dengan segala hormatnya menjemput<br>Dato' / Datin / Tuan / Puan / Encik / Cik sekeluarga<br>ke majlis akad nikah anakanda kami</p>
     <h1 class="couple">Mustafa Khan<br><span style="font-size:.85em">Bin Nawaz Khan</span><span class="amp">dengan</span>Nurin Natasha<br><span style="font-size:.85em">Binti Muhamad Nasir</span></h1>
-    <p class="hero-date">JUMAAT · 07 / OGOS / 2026</p>
+    <p class="hero-date">JUMAAT · 07 . OGOS . 2026</p>
     <p class="hero-venue">Masjid Al-Muttaqin Dusun Tua<br>Hulu Langat, Selangor</p>
   </div>
   <div class="scrolldown">Tatal ke bawah</div>
@@ -274,7 +292,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
   <p class="eyebrow">Butiran Majlis</p>
   <h2>Akad Nikah</h2>
   <div class="card">
-    <div class="drow"><div class="ic">✦</div><div><h4>Tarikh</h4><p>Jumaat, 07 / Ogos / 2026</p></div></div>
+    <div class="drow"><div class="ic">✦</div><div><h4>Tarikh</h4><p>Jumaat, 07 . Ogos . 2026</p></div></div>
     <div class="drow"><div class="ic">◷</div><div><h4>Masa</h4><p>9.00 pagi hingga 10.30 pagi</p></div></div>
     <div class="drow"><div class="ic">⚲</div><div><h4>Tempat</h4><p>Masjid Al-Muttaqin Dusun Tua<br>KJ86 Masjid Al-Muttaqin<br>43100 Hulu Langat, Selangor</p></div></div>
     <div class="drow"><div class="ic">❀</div><div><h4>Tema Pakaian</h4><p>Baby Yellow · tiada fesyen khusus, kehadiran anda yang utama</p><div class="attire"><span class="swatch"></span><span style="font-size:.85rem;color:var(--text-mid)">Baby Yellow</span></div><div class="pills"><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+kurung+baby+yellow">Wanita · Baju Kurung</a><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+melayu+baby+yellow">Lelaki · Baju Melayu</a></div></div></div>
@@ -414,6 +432,9 @@ document.getElementById('seal').addEventListener('click',()=>{
   env.classList.add('open');gate.classList.add('opening');
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},1500);
+  // slow guided auto-scroll to bottom, interruptible
+  setTimeout(startAutoScroll, 2200);
+
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
 
@@ -440,6 +461,7 @@ cd();setInterval(cd,1000);
 
 /* gallery */
 const track=document.getElementById('ctrack'),dots=document.getElementById('cdots');
+let carAuto=null;function stopCar(){if(carAuto){clearInterval(carAuto);carAuto=null;}}
 for(let i=1;i<=CONFIG.GALLERY;i++){
   const s=document.createElement('div');s.className='slide';
   s.innerHTML=`<img src="images/gallery-${i}.jpg" alt="Gambar pertunangan ${i}" loading="lazy" onerror="this.closest('.slide').remove();buildDots()">`;
@@ -449,7 +471,7 @@ function buildDots(){
   dots.innerHTML='';
   track.querySelectorAll('.slide').forEach((_,i)=>{
     const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));
-    b.onclick=()=>track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    b.onclick=()=>{stopCar();track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});};
     dots.appendChild(b);
   });
   markDot();
@@ -463,11 +485,12 @@ function markDot(){
 }
 buildDots();
 track.addEventListener('scroll',()=>requestAnimationFrame(markDot),{passive:true});
+track.addEventListener('pointerdown',stopCar,{passive:true});track.addEventListener('touchstart',stopCar,{passive:true});track.addEventListener('wheel',stopCar,{passive:true});
 function slideBy(dir){track.scrollBy({left:dir*(track.clientWidth*0.75),behavior:'smooth'})}
-document.getElementById('cprev').onclick=()=>slideBy(-1);
-document.getElementById('cnext').onclick=()=>slideBy(1);
+document.getElementById('cprev').onclick=()=>{stopCar();slideBy(-1);};
+document.getElementById('cnext').onclick=()=>{stopCar();slideBy(1);};
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-  setInterval(()=>{
+  carAuto=setInterval(()=>{
     if(!document.body.classList.contains('opened'))return;
     const max=track.scrollWidth-track.clientWidth;
     if(track.scrollLeft>=max-10)track.scrollTo({left:0,behavior:'smooth'});
@@ -520,7 +543,7 @@ document.getElementById('ics').addEventListener('click',e=>{
   'UID:nikah-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260807T010000Z','DTEND:20260807T023000Z',
   'SUMMARY:Majlis Akad Nikah Mustafa Khan & Nurin Natasha',
   'LOCATION:Masjid Al-Muttaqin Dusun Tua\\, KJ86\\, 43100 Hulu Langat\\, Selangor',
-  'DESCRIPTION:Jumaat 07/Ogos/2026\\, 9.00 pagi - 10.30 pagi',
+  'DESCRIPTION:Jumaat 07.Ogos.2026\\, 9.00 pagi - 10.30 pagi',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Peringatan 1 bulan','TRIGGER:-P30D','END:VALARM',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Peringatan 2 minggu','TRIGGER:-P14D','END:VALARM',
   'END:VEVENT','END:VCALENDAR'].join('\r\n');
@@ -547,6 +570,41 @@ document.getElementById('ics').addEventListener('click',e=>{
     requestAnimationFrame(loop);
   })();
 })();
+
+/* guided auto-scroll */
+let autoScrollRAF=null,autoScrolling=false;
+function stopAutoScroll(){autoScrolling=false;if(autoScrollRAF)cancelAnimationFrame(autoScrollRAF);}
+function startAutoScroll(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  autoScrolling=true;
+  const speed=0.55; // px per frame (~33px/s)
+  let acc=0;
+  function step(){
+    if(!autoScrolling)return;
+    const max=document.documentElement.scrollHeight-innerHeight;
+    if(scrollY>=max-2){autoScrolling=false;return;}
+    acc+=speed;
+    if(acc>=1){window.scrollBy(0,acc);acc=0;}
+    autoScrollRAF=requestAnimationFrame(step);
+  }
+  autoScrollRAF=requestAnimationFrame(step);
+}
+['wheel','touchstart','keydown','mousedown'].forEach(ev=>
+  addEventListener(ev,stopAutoScroll,{passive:true}));
+
+/* bottom bar active section highlight */
+(function(){
+  const bar=document.getElementById('botbar');if(!bar)return;
+  const links=[...bar.querySelectorAll('a')];
+  const ids=links.map(a=>a.getAttribute('href'));
+  const secs=ids.map(h=>document.querySelector(h)).filter(Boolean);
+  addEventListener('scroll',()=>{
+    let cur=-1,mid=scrollY+innerHeight*0.4;
+    secs.forEach((sec,i)=>{if(sec.offsetTop<=mid)cur=i;});
+    links.forEach((a,i)=>a.classList.toggle('on',i===cur));
+  },{passive:true});
+})();
+
 </script>
 </body>
 </html>

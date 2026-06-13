@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#4A0E1C">
 <meta property="og:title" content="Jemputan Majlis Akad Nikah — Nurin Natasha &amp; Mustafa Khan">
-<meta property="og:description" content="Jumaat · 07 / Ogos / 2026 · Masjid Al-Muttaqin Dusun Tua, Hulu Langat">
+<meta property="og:description" content="Jumaat · 07 . Ogos . 2026 · Masjid Al-Muttaqin Dusun Tua, Hulu Langat">
 <meta property="og:image" content="https://wedding-invitations-i84.pages.dev/images/hero.jpg">
 <meta property="og:url" content="https://wedding-invitations-i84.pages.dev/nikah-bride">
 <title>Majlis Akad Nikah — Nurin Natasha &amp; Mustafa Khan · 07 Ogos 2026</title>
@@ -216,6 +216,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 @keyframes spinp{to{transform:rotate(360deg)}}
 
 #pcanvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+@media(max-width:760px){body.opened #mbtn{bottom:calc(4.7rem + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   #pcanvas{display:none}
@@ -463,6 +464,7 @@ cd();setInterval(cd,1000);
 
 /* gallery */
 const track=document.getElementById('ctrack'),dots=document.getElementById('cdots');
+let carAuto=null;function stopCar(){if(carAuto){clearInterval(carAuto);carAuto=null;}}
 for(let i=1;i<=CONFIG.GALLERY;i++){
   const s=document.createElement('div');s.className='slide';
   s.innerHTML=`<img src="images/gallery-${i}.jpg" alt="Gambar pertunangan ${i}" loading="lazy" onerror="this.closest('.slide').remove();buildDots()">`;
@@ -472,7 +474,7 @@ function buildDots(){
   dots.innerHTML='';
   track.querySelectorAll('.slide').forEach((_,i)=>{
     const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));
-    b.onclick=()=>track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    b.onclick=()=>{stopCar();track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});};
     dots.appendChild(b);
   });
   markDot();
@@ -486,11 +488,12 @@ function markDot(){
 }
 buildDots();
 track.addEventListener('scroll',()=>requestAnimationFrame(markDot),{passive:true});
+track.addEventListener('pointerdown',stopCar,{passive:true});track.addEventListener('touchstart',stopCar,{passive:true});track.addEventListener('wheel',stopCar,{passive:true});
 function slideBy(dir){track.scrollBy({left:dir*(track.clientWidth*0.75),behavior:'smooth'})}
-document.getElementById('cprev').onclick=()=>slideBy(-1);
-document.getElementById('cnext').onclick=()=>slideBy(1);
+document.getElementById('cprev').onclick=()=>{stopCar();slideBy(-1);};
+document.getElementById('cnext').onclick=()=>{stopCar();slideBy(1);};
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-  setInterval(()=>{
+  carAuto=setInterval(()=>{
     if(!document.body.classList.contains('opened'))return;
     const max=track.scrollWidth-track.clientWidth;
     if(track.scrollLeft>=max-10)track.scrollTo({left:0,behavior:'smooth'});
@@ -543,7 +546,7 @@ document.getElementById('ics').addEventListener('click',e=>{
   'UID:nikah-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260807T010000Z','DTEND:20260807T023000Z',
   'SUMMARY:Majlis Akad Nikah Nurin Natasha & Mustafa Khan',
   'LOCATION:Masjid Al-Muttaqin Dusun Tua\\, KJ86\\, 43100 Hulu Langat\\, Selangor',
-  'DESCRIPTION:Jumaat 07/Ogos/2026\\, 9.00 pagi - 10.30 pagi',
+  'DESCRIPTION:Jumaat 07.Ogos.2026\\, 9.00 pagi - 10.30 pagi',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Peringatan 1 bulan','TRIGGER:-P30D','END:VALARM',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Peringatan 2 minggu','TRIGGER:-P14D','END:VALARM',
   'END:VEVENT','END:VCALENDAR'].join('\r\n');

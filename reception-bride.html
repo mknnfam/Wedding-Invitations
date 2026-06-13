@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#2E1B10">
-<meta property="og:title" content="Wedding Reception — Mustafa Khan &amp; Nurin Natasha">
-<meta property="og:description" content="Friday · 07 / August / 2026 · Camelia Event Space @ Fiesta Mall, Axis Pandan">
+<meta property="og:title" content="Wedding Reception — Nurin Natasha &amp; Mustafa Khan">
+<meta property="og:description" content="Friday · 07 . August . 2026 · Camelia Event Space @ Fiesta Mall, Axis Pandan">
 <meta property="og:image" content="https://wedding-invitations-i84.pages.dev/images/hero.jpg">
 <meta property="og:url" content="https://wedding-invitations-i84.pages.dev/reception-bride">
-<title>Wedding Reception — Mustafa Khan &amp; Nurin Natasha · 07 August 2026</title>
+<title>Wedding Reception — Nurin Natasha &amp; Mustafa Khan · 07 August 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -78,6 +78,20 @@ img{max-width:100%;display:block}
 
 main{opacity:0;transition:opacity 1s ease .4s}
 body.opened main{opacity:1}
+
+/* ===== SCROLL LOCK until opened ===== */
+body:not(.opened){overflow:hidden;height:100svh}
+/* ===== STICKY BOTTOM BAR (mobile) ===== */
+#botbar{position:fixed;left:0;right:0;bottom:0;z-index:640;display:none;align-items:stretch;justify-content:space-around;background:rgba(31,17,9,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(0,0,0,.22);padding:.35rem .2rem;padding-bottom:max(.35rem,env(safe-area-inset-bottom))}
+#botbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:.18rem;text-decoration:none;color:var(--gold-light);padding:.4rem .1rem;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.82;transition:opacity .25s,color .25s}
+#botbar a .bi{font-size:1.15rem;line-height:1}
+#botbar a:active,#botbar a.on{opacity:1;color:var(--gold)}
+body.opened #botbar{display:none}
+@media(max-width:760px){
+  body.opened #botbar{display:flex}
+  body.opened main{padding-bottom:4.2rem}
+}
+
 section{padding:4.5rem 1.4rem;max-width:680px;margin:0 auto}
 .eyebrow{text-align:center;letter-spacing:.36em;text-transform:uppercase;font-size:.66rem;color:var(--gold-dim);margin-bottom:.9rem}
 h2{font-family:'Marcellus',serif;font-size:1.85rem;text-align:center;color:var(--gold-light);margin-bottom:1.6rem;letter-spacing:.08em;text-transform:uppercase}
@@ -193,6 +207,7 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
 #mbtn.playing{animation:spinp 6s linear infinite}
 @keyframes spinp{to{transform:rotate(360deg)}}
 #pcanvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+@media(max-width:760px){body.opened #mbtn{bottom:calc(4.7rem + env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   #pcanvas{display:none}
@@ -219,7 +234,7 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
       </g>
     </svg>
     <p class="pre">The Wedding Reception of</p>
-    <h1 class="foil">Mustafa Khan<br>&amp; Nurin Natasha</h1>
+    <h1 class="foil">Nurin Natasha<br>&amp; Mustafa Khan</h1>
     <p class="sub">07 · August · 2026 · Camelia Event Space</p>
     <button id="opengate">Open Invitation</button>
   </div>
@@ -243,6 +258,9 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
 <button id="mbtn" aria-label="Music">♪</button>
 <audio id="bgm" src="music-reception-bride.mp3" loop preload="none"></audio>
 
+
+<nav id="botbar" aria-label="Quick navigation"><a href="#location"><span class="bi" aria-hidden="true">📍</span><span>Location</span></a><a href="#programme"><span class="bi" aria-hidden="true">🗓</span><span>Programme</span></a><a href="#rsvp"><span class="bi" aria-hidden="true">✉</span><span>RSVP</span></a><a href="#gift"><span class="bi" aria-hidden="true">🎁</span><span>Gift</span></a><a href="#contact"><span class="bi" aria-hidden="true">✆</span><span>Contact</span></a></nav>
+
 <main>
 
 <!-- HERO -->
@@ -254,9 +272,9 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
     <span class="corner br" style="bottom:-2px;right:-2px;border-left:none;border-top:none"></span>
     <p class="pre">Together with their families</p>
     <p class="hostnames">Muhamad Nasir &amp; Nor Zurina</p>
-    <p class="hosttxt">request the honour of your presence<br>at the wedding reception of their beloved children</p>
-    <h1 class="couple foil">Mustafa Khan<span class="amp">AND</span>Nurin Natasha</h1>
-    <p class="hero-date">FRIDAY · 07 / AUGUST / 2026</p>
+    <p class="hosttxt">request the honour of the presence of<br>Dato' / Datin / Tuan / Puan / Encik / Cik &amp; Families<br>at the wedding reception of their beloved princess</p>
+    <h1 class="couple foil">Nurin Natasha<span class="amp">AND</span>Mustafa Khan</h1>
+    <p class="hero-date">FRIDAY · 07 . AUGUST . 2026</p>
     <p class="hero-venue">Camelia Event Space @ Fiesta Mall<br>Axis Pandan</p>
   </div>
   <div class="scrolldown">Scroll Down</div>
@@ -279,12 +297,12 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
   <h2>Reception Details</h2>
   <div class="div-motif">◆</div>
   <div class="card">
-    <div class="drow"><div class="ic"><span>✦</span></div><div><h4>Date</h4><p>Friday, 07 / August / 2026</p></div></div>
-    <div class="drow"><div class="ic"><span>◷</span></div><div><h4>Time</h4><p>6.30 PM until 10.00 PM</p></div></div>
+    <div class="drow"><div class="ic"><span>✦</span></div><div><h4>Date</h4><p>Friday, 07 . August . 2026</p></div></div>
+    <div class="drow"><div class="ic"><span>◷</span></div><div><h4>Time</h4><p>6.00 PM until 10.00 PM</p></div></div>
     <div class="drow"><div class="ic"><span>⚲</span></div><div><h4>Venue</h4><p>Camelia Event Space @ Fiesta Mall<br>Axis Pandan</p></div></div>
   </div>
   <div class="mbtns">
-    <a class="obtn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Reception%20of%20Mustafa%20Khan%20%26%20Nurin%20Natasha&dates=20260807T103000Z/20260807T140000Z&details=Wedding%20Reception%20of%20Mustafa%20Khan%20%26%20Nurin%20Natasha&location=Camelia%20Event%20Space%20%40%20Fiesta%20Mall%2C%20Axis%20Pandan">Google Calendar</a>
+    <a class="obtn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding%20Reception%20of%20Nurin%20Natasha%20%26%20Mustafa%20Khan&dates=20260807T100000Z/20260807T140000Z&details=Wedding%20Reception%20of%20Nurin%20Natasha%20%26%20Mustafa%20Khan&location=Camelia%20Event%20Space%20%40%20Fiesta%20Mall%2C%20Axis%20Pandan">Google Calendar</a>
     <a class="obtn" href="#" id="ics">Download Reminder (.ics)</a>
   </div>
   <p class="note">The .ics file includes automatic reminders 1 month and 2 weeks before the reception.</p>
@@ -297,7 +315,7 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
   <h2>Order of the Evening</h2>
   <div class="div-motif">◆</div>
   <ul class="prog">
-    <li><time>6.30 PM</time><span>Guest Arrival</span></li>
+    <li><time>6.00 PM</time><span>Guest Arrival</span></li>
     <li><time>7.30 PM</time><span>Grand Entrance of the Bride &amp; Groom</span></li>
     <li><time>8.00 PM</time><span>Dinner Is Served</span></li>
     <li><time>9.00 PM</time><span>Cake Cutting &amp; Speeches</span></li>
@@ -378,7 +396,7 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
   <div class="div-motif">◆</div>
   <div class="cgrid">
     <div class="crow"><div class="nm">Muhamad Nasir<small>019-2712260</small></div><div class="cbtns"><a href="tel:0192712260" aria-label="Call Muhamad Nasir">✆</a><a href="https://wa.me/60192712260" target="_blank" rel="noopener" aria-label="WhatsApp Muhamad Nasir">✉</a></div></div>
-    <div class="crow"><div class="nm">Nor Zurina<small>017-2774079</small></div><div class="cbtns"><a href="tel:0172774079" aria-label="Call Nor Zurina">✆</a><a href="https://wa.me/60172774079" target="_blank" rel="noopener" aria-label="WhatsApp Nor Zurina">✉</a></div></div>
+    <div class="crow"><div class="nm">Nor Zurina<small>017-2774039</small></div><div class="cbtns"><a href="tel:0172774039" aria-label="Call Nor Zurina">✆</a><a href="https://wa.me/60172774039" target="_blank" rel="noopener" aria-label="WhatsApp Nor Zurina">✉</a></div></div>
     <div class="crow"><div class="nm">Nurin Liyana<small>019-4355394</small></div><div class="cbtns"><a href="tel:0194355394" aria-label="Call Nurin Liyana">✆</a><a href="https://wa.me/60194355394" target="_blank" rel="noopener" aria-label="WhatsApp Nurin Liyana">✉</a></div></div>
   </div>
 </section>
@@ -406,7 +424,7 @@ footer{background:#170C05;color:#8A7458;text-align:center;font-size:.68rem;lette
 </section>
 
 </main>
-<footer>Mustafa Khan ♥ Nurin Natasha · 2026</footer>
+<footer>Nurin Natasha ♥ Mustafa Khan · 2026</footer>
 
 <script>
 const CONFIG={
@@ -421,6 +439,9 @@ const gate=document.getElementById('gate'),bgm=document.getElementById('bgm'),mb
 document.getElementById('opengate').addEventListener('click',()=>{
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');
+  // slow guided auto-scroll to bottom, interruptible
+  setTimeout(startAutoScroll, 2200);
+
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
 
@@ -444,6 +465,7 @@ const cdd=document.getElementById('cdd'),cdh=document.getElementById('cdh'),cdm=
 cdt();setInterval(cdt,1000);
 
 const track=document.getElementById('ctrack'),dots=document.getElementById('cdots');
+let carAuto=null;function stopCar(){if(carAuto){clearInterval(carAuto);carAuto=null;}}
 for(let i=1;i<=CONFIG.GALLERY;i++){
   const s=document.createElement('div');s.className='slide';
   s.innerHTML=`<img src="images/gallery-${i}.jpg" alt="Engagement photo ${i}" loading="lazy" onerror="this.closest('.slide').remove();buildDots()">`;
@@ -453,7 +475,7 @@ function buildDots(){
   dots.innerHTML='';
   track.querySelectorAll('.slide').forEach((_,i)=>{
     const b=document.createElement('button');b.setAttribute('aria-label','Slide '+(i+1));
-    b.onclick=()=>track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+    b.onclick=()=>{stopCar();track.querySelectorAll('.slide')[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});};
     dots.appendChild(b);
   });
   markDot();
@@ -467,11 +489,12 @@ function markDot(){
 }
 buildDots();
 track.addEventListener('scroll',()=>requestAnimationFrame(markDot),{passive:true});
+track.addEventListener('pointerdown',stopCar,{passive:true});track.addEventListener('touchstart',stopCar,{passive:true});track.addEventListener('wheel',stopCar,{passive:true});
 function slideBy(d){track.scrollBy({left:d*(track.clientWidth*0.75),behavior:'smooth'})}
-document.getElementById('cprev').onclick=()=>slideBy(-1);
-document.getElementById('cnext').onclick=()=>slideBy(1);
+document.getElementById('cprev').onclick=()=>{stopCar();slideBy(-1);};
+document.getElementById('cnext').onclick=()=>{stopCar();slideBy(1);};
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-  setInterval(()=>{
+  carAuto=setInterval(()=>{
     if(!document.body.classList.contains('opened'))return;
     const max=track.scrollWidth-track.clientWidth;
     if(track.scrollLeft>=max-10)track.scrollTo({left:0,behavior:'smooth'});
@@ -519,10 +542,10 @@ document.getElementById('rform').addEventListener('submit',async e=>{
 document.getElementById('ics').addEventListener('click',e=>{
   e.preventDefault();
   const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MKNN//Wedding//EN','BEGIN:VEVENT',
-  'UID:reception-bride-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260807T103000Z','DTEND:20260807T140000Z',
-  'SUMMARY:Wedding Reception of Mustafa Khan & Nurin Natasha',
+  'UID:reception-bride-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260807T100000Z','DTEND:20260807T140000Z',
+  'SUMMARY:Wedding Reception of Nurin Natasha & Mustafa Khan',
   'LOCATION:Camelia Event Space @ Fiesta Mall\\, Axis Pandan',
-  'DESCRIPTION:Friday 07/August/2026\\, 6.30 PM - 10.00 PM',
+  'DESCRIPTION:Friday 07.August.2026\\, 6.00 PM - 10.00 PM',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder 1 month before','TRIGGER:-P30D','END:VALARM',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder 2 weeks before','TRIGGER:-P14D','END:VALARM',
   'END:VEVENT','END:VCALENDAR'].join('\r\n');
@@ -549,6 +572,41 @@ document.getElementById('ics').addEventListener('click',e=>{
     requestAnimationFrame(loop);
   })();
 })();
+
+/* guided auto-scroll */
+let autoScrollRAF=null,autoScrolling=false;
+function stopAutoScroll(){autoScrolling=false;if(autoScrollRAF)cancelAnimationFrame(autoScrollRAF);}
+function startAutoScroll(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  autoScrolling=true;
+  const speed=0.55; // px per frame (~33px/s)
+  let acc=0;
+  function step(){
+    if(!autoScrolling)return;
+    const max=document.documentElement.scrollHeight-innerHeight;
+    if(scrollY>=max-2){autoScrolling=false;return;}
+    acc+=speed;
+    if(acc>=1){window.scrollBy(0,acc);acc=0;}
+    autoScrollRAF=requestAnimationFrame(step);
+  }
+  autoScrollRAF=requestAnimationFrame(step);
+}
+['wheel','touchstart','keydown','mousedown'].forEach(ev=>
+  addEventListener(ev,stopAutoScroll,{passive:true}));
+
+/* bottom bar active section highlight */
+(function(){
+  const bar=document.getElementById('botbar');if(!bar)return;
+  const links=[...bar.querySelectorAll('a')];
+  const ids=links.map(a=>a.getAttribute('href'));
+  const secs=ids.map(h=>document.querySelector(h)).filter(Boolean);
+  addEventListener('scroll',()=>{
+    let cur=-1,mid=scrollY+innerHeight*0.4;
+    secs.forEach((sec,i)=>{if(sec.offsetTop<=mid)cur=i;});
+    links.forEach((a,i)=>a.classList.toggle('on',i===cur));
+  },{passive:true});
+})();
+
 </script>
 </body>
 </html>
