@@ -615,54 +615,78 @@ document.getElementById('ics').addEventListener('click',e=>{
 /* guided auto-scroll using sections */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const root = document.documentElement;
   const SECTIONS = Array.from(document.querySelectorAll('main section, #home, #count, #details, #programme, #gallery, #rsvp, #gift, #contact, #location, #closing')).filter(Boolean);
-  let idx = 0, raf = null, busy = false;
-  function stop(){ busy = false; if(raf){ cancelAnimationFrame(raf); raf = null; } }
+  if (!SECTIONS.length) return;
+  let raf = null, busy = false, idx = 0, start = 0, target = 0, startTime = 0;
+  const DURATION = 900;
+  function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
+  function now(){ return window.scrollY || document.documentElement.scrollTop || 0; }
+  function stop(){ busy = false; if (raf){ cancelAnimationFrame(raf); raf = null; } }
+  function sectionTop(el){ return (el.getBoundingClientRect().top + now() - window.innerHeight * 0.35); }
   function currentIndex(){
-    const y = window.scrollY || root.scrollTop || 0;
+    const y = now();
     let cur = 0;
     SECTIONS.forEach((sec, i) => {
       if (y >= (sec.offsetTop - innerHeight * 0.45)) cur = i;
     });
     return cur;
   }
-  function gotoSection(i){
-    if (i < 0 || i >= SECTIONS.length) return;
+  function animateTo(targetY){
     stop();
     busy = true;
-    idx = i;
-    SECTIONS[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  function step(){
-    if (!busy) return;
-    const target = SECTIONS[idx];
-    if (!target){ stop(); return; }
-    const dist = Math.abs((window.scrollY || 0) + innerHeight * 0.3 - (target.offsetTop + target.offsetHeight * 0.4));
-    if (dist < 4){ stop(); return; }
+    start = now();
+    target = targetY;
+    startTime = performance.now();
+    function step(ts){
+      if (!busy) return;
+      const elapsed = ts - startTime;
+      const t = Math.min(elapsed / DURATION, 1);
+      window.scrollTo(0, Math.round(start + (target - start) * easeOutCubic(t)));
+      if (t < 1){ raf = requestAnimationFrame(step); }
+      else { busy = false; raf = null; }
+    }
     raf = requestAnimationFrame(step);
   }
-  window.jumpNext = () => gotoSection(currentIndex() + 1);
-  window.jumpPrev = () => { stop(); busy = true; idx = currentIndex(); if (idx > 0) idx--; gotoSection(idx); };
+  function gotoSection(i){
+    if (i < 0 || i >= SECTIONS.length) return;
+    const targetY = sectionTop(SECTIONS[i]);
+    animateTo(targetY);
+    idx = i;
+  }
+  window.jumpNext = () => gotoSection(Math.min(currentIndex() + 1, SECTIONS.length - 1));
+  window.jumpPrev = () => {
+    const cur = currentIndex();
+    stop();
+    const prev = Math.max(cur - 1, 0);
+    idx = prev;
+    animateTo(sectionTop(SECTIONS[prev]));
+  };
   document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowDown') { e.preventDefault(); window.jumpNext(); }
-    if (e.key === 'ArrowUp')   { e.preventDefault(); window.jumpPrev(); }
+    if (e.key === 'ArrowDown'){ e.preventDefault(); window.jumpNext(); }
+    if (e.key === 'ArrowUp'){ e.preventDefault(); window.jumpPrev(); }
   });
-  let lastTouch = null;
+  let touchStart = null;
   document.addEventListener('touchstart', e => {
-    lastTouch = e.touches[0].clientY;
+    touchStart = e.touches[0].clientY;
   }, {passive: true});
-  document.addEventListener('touchend', e => {
-    if (!lastTouch) return;
-    const dy = (e.changedTouches[0]?.clientY || lastTouch) - lastTouch;
-    if (Math.abs(dy) > 14 && Math.abs(dy) < 160){ e.preventDefault(); dy < 0 ? window.jumpNext() : window.jumpPrev(); }
-    lastTouch = lastTouch; // keep latest
+  document.addEventListener('touchmove', e => {
+    if (!touchStart) return;
+    const dy = touchStart - (e.touches[0].clientY || touchStart);
+    if (Math.abs(dy) > 18 && Math.abs(dy) < 140){
+      e.preventDefault();
+      dy > 0 ? window.jumpNext() : window.jumpPrev();
+      touchStart = null;
+    }
   }, {passive: false});
+  document.addEventListener('touchend', () => { touchStart = null; }, {passive: true});
   if ('onwheel' in window){
+    let wheelAcc = 0, wheelTimeout;
     window.addEventListener('wheel', e => {
       e.preventDefault();
-      if (Math.abs(e.deltaY) < 10) return;
-      e.deltaY > 0 ? window.jumpNext() : window.jumpPrev();
+      wheelAcc += e.deltaY;
+      clearTimeout(wheelTimeout);
+      wheelTimeout = setTimeout(() => { wheelAcc = 0; }, 120);
+      if (Math.abs(wheelAcc) > 35){ wheelAcc > 0 ? window.jumpNext() : window.jumpPrev(); wheelAcc = 0; }
     }, {passive: false});
   }
 })();
