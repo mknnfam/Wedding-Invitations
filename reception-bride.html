@@ -467,7 +467,7 @@ document.getElementById('opengate').addEventListener('click',()=>{
   gate.classList.add('opening');
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},900);
-  setTimeout(()=>{ if(typeof window.jumpNext==='function') window.jumpNext(); }, 1800);
+  setTimeout(()=>{ if(typeof window.startSmoothScroll==='function') window.startSmoothScroll(); }, 2200);
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
 
@@ -612,83 +612,29 @@ document.getElementById('ics').addEventListener('click',e=>{
   },{passive:true});
 })();
 
-/* guided auto-scroll using sections */
+/* guided auto-scroll */
 (function(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const SECTIONS = Array.from(document.querySelectorAll('main section, #home, #count, #details, #programme, #gallery, #rsvp, #gift, #contact, #location, #closing')).filter(Boolean);
-  if (!SECTIONS.length) return;
-  let raf = null, busy = false, idx = 0, start = 0, target = 0, startTime = 0;
-  const DURATION = 900;
-  function easeOutCubic(t){ return 1 - Math.pow(1 - t, 3); }
-  function now(){ return window.scrollY || document.documentElement.scrollTop || 0; }
-  function stop(){ busy = false; if (raf){ cancelAnimationFrame(raf); raf = null; } }
-  function sectionTop(el){ return (el.getBoundingClientRect().top + now() - window.innerHeight * 0.35); }
-  function currentIndex(){
-    const y = now();
-    let cur = 0;
-    SECTIONS.forEach((sec, i) => {
-      if (y >= (sec.offsetTop - innerHeight * 0.45)) cur = i;
-    });
-    return cur;
+  let raf = null, active = false;
+  function stop(){ active = false; if(raf){ cancelAnimationFrame(raf); raf = null; } }
+  function scrollStep(){
+    if(!active) return;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const cur = window.scrollY || 0;
+    if(cur >= max - 2){ stop(); return; }
+    const speed = 0.45;
+    window.scrollBy(0, speed);
+    raf = requestAnimationFrame(scrollStep);
   }
-  function animateTo(targetY){
-    stop();
-    busy = true;
-    start = now();
-    target = targetY;
-    startTime = performance.now();
-    function step(ts){
-      if (!busy) return;
-      const elapsed = ts - startTime;
-      const t = Math.min(elapsed / DURATION, 1);
-      window.scrollTo(0, Math.round(start + (target - start) * easeOutCubic(t)));
-      if (t < 1){ raf = requestAnimationFrame(step); }
-      else { busy = false; raf = null; }
-    }
-    raf = requestAnimationFrame(step);
-  }
-  function gotoSection(i){
-    if (i < 0 || i >= SECTIONS.length) return;
-    const targetY = sectionTop(SECTIONS[i]);
-    animateTo(targetY);
-    idx = i;
-  }
-  window.jumpNext = () => gotoSection(Math.min(currentIndex() + 1, SECTIONS.length - 1));
-  window.jumpPrev = () => {
-    const cur = currentIndex();
-    stop();
-    const prev = Math.max(cur - 1, 0);
-    idx = prev;
-    animateTo(sectionTop(SECTIONS[prev]));
+  window.startSmoothScroll = function(){
+    if(active) return;
+    active = true;
+    raf = requestAnimationFrame(scrollStep);
   };
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowDown'){ e.preventDefault(); window.jumpNext(); }
-    if (e.key === 'ArrowUp'){ e.preventDefault(); window.jumpPrev(); }
-  });
-  let touchStart = null;
-  document.addEventListener('touchstart', e => {
-    touchStart = e.touches[0].clientY;
-  }, {passive: true});
-  document.addEventListener('touchmove', e => {
-    if (!touchStart) return;
-    const dy = touchStart - (e.touches[0].clientY || touchStart);
-    if (Math.abs(dy) > 18 && Math.abs(dy) < 140){
-      e.preventDefault();
-      dy > 0 ? window.jumpNext() : window.jumpPrev();
-      touchStart = null;
-    }
-  }, {passive: false});
-  document.addEventListener('touchend', () => { touchStart = null; }, {passive: true});
-  if ('onwheel' in window){
-    let wheelAcc = 0, wheelTimeout;
-    window.addEventListener('wheel', e => {
-      e.preventDefault();
-      wheelAcc += e.deltaY;
-      clearTimeout(wheelTimeout);
-      wheelTimeout = setTimeout(() => { wheelAcc = 0; }, 120);
-      if (Math.abs(wheelAcc) > 35){ wheelAcc > 0 ? window.jumpNext() : window.jumpPrev(); wheelAcc = 0; }
-    }, {passive: false});
-  }
+  window.stopSmoothScroll = stop;
+  ['wheel','touchstart','keydown','mousedown'].forEach(ev=>
+    addEventListener(ev, stop, {passive: true})
+  );
 })();
 </script>
 </body>
