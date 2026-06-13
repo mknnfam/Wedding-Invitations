@@ -42,8 +42,8 @@ img{max-width:100%;display:block}
 #gate.hide{opacity:0;visibility:hidden;pointer-events:none}
 .deco-door{position:absolute;top:0;bottom:0;width:51%;z-index:2;transition:transform 1.4s cubic-bezier(.7,0,.25,1);background:linear-gradient(180deg,var(--emerald-mid),var(--emerald) 60%,var(--emerald-deep))}
 .deco-door .rays{position:absolute;inset:0;opacity:.5}
-.deco-door.l{left:0;border-right:1px solid var(--gold)}
-.deco-door.r{right:0;border-left:1px solid var(--gold)}
+.deco-door.l{left:0}
+.deco-door.r{right:0}
 #gate.opening .deco-door.l{transform:translateX(-101%)}
 #gate.opening .deco-door.r{transform:translateX(101%)}
 .gate-inner{position:relative;z-index:5;text-align:center;max-width:460px;padding:2.6rem 1.8rem 3rem;transition:opacity .8s;background:radial-gradient(ellipse at center,rgba(6,32,25,.9),rgba(6,32,25,.62) 62%,transparent 88%)}
@@ -58,6 +58,8 @@ img{max-width:100%;display:block}
 .gate-inner .pre{letter-spacing:.4em;font-size:.66rem;color:var(--gold-light);text-transform:uppercase;opacity:0;animation:rise .9s ease .5s forwards}
 .gate-inner h1{font-family:'Cinzel',serif;font-size:clamp(1.7rem,6.5vw,2.4rem);letter-spacing:.08em;margin:.9rem 0;text-transform:uppercase;opacity:0;animation:rise .9s ease .72s forwards}
 .gate-inner .sub{letter-spacing:.26em;font-size:.7rem;color:var(--text-soft);text-transform:uppercase;opacity:0;animation:rise .9s ease .95s forwards}
+.gate-venue-wrap{display:inline}
+@media(max-width:520px){.gate-venue-wrap{display:block}}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 #opengate{margin-top:2.1rem;padding:.95rem 2.6rem;border:1px solid var(--gold);background:transparent;color:var(--gold-light);font-family:'EB Garamond',serif;font-size:.85rem;letter-spacing:.32em;text-transform:uppercase;cursor:pointer;transition:.35s;opacity:0;animation:rise .9s ease 1.2s forwards;position:relative}
 #opengate:hover{background:var(--gold);color:var(--emerald-deep)}
@@ -252,8 +254,8 @@ footer{background:var(--emerald-deep);color:var(--gold-deep);text-align:center;f
       </g>
     </svg>
     <p class="pre">The Wedding Reception of</p>
-    <h1 class="foil">Nurin Natasha<br><span class="amp-stack">&amp;</span>Mustafa Khan</h1>
-    <p class="sub">07 · August · 2026 · Camelia Event Space</p>
+    <h1 class="foil">Nurin Natasha<br><span class="amp-stack">&amp;</span><br>Mustafa Khan</h1>
+    <p class="sub">07 · August · 2026<span class="gate-venue-wrap"> · Camelia Event Space</span></p>
     <button id="opengate">Open Invitation</button>
   </div>
 </div>
@@ -334,7 +336,7 @@ footer{background:var(--emerald-deep);color:var(--gold-deep);text-align:center;f
 <!-- PROGRAMME -->
 <section id="programme" style="background:var(--emerald-deep);max-width:none">
   <div style="max-width:560px;margin:0 auto">
-  <p class="eyebrow">Programme</p>
+  <p class="eyebrow">Tentative</p>
   <h2>Order of the Evening</h2>
   <div class="div-motif"><span>❧</span></div>
   <ul class="prog">
@@ -597,21 +599,35 @@ document.getElementById('ics').addEventListener('click',e=>{
 
 /* guided auto-scroll */
 let autoScrollRAF=null,autoScrolling=false;
-function stopAutoScroll(){autoScrolling=false;if(autoScrollRAF)cancelAnimationFrame(autoScrollRAF);}
+function stopAutoScroll(){autoScrolling=false;if(autoScrollRAF)cancelAnimationFrame(autoScrollRAF);autoScrollRAF=null;}
+function getMaxScroll(){
+  try{
+    const docEl=document.documentElement;
+    const body=document.body;
+    const scrollH=Math.max(docEl.scrollHeight, body.scrollHeight);
+    const clientH=docEl.clientHeight || innerHeight;
+    return Math.max(0, scrollH - clientH);
+  }catch(_){return 0;}
+}
 function startAutoScroll(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  stopAutoScroll();
   autoScrolling=true;
   const speed=0.55;
   let acc=0;
   function step(){
     if(!autoScrolling)return;
-    const max=document.documentElement.scrollHeight-innerHeight;
-    if(scrollY>=max-2){autoScrolling=false;return;}
-    acc+=speed;
-    if(acc>=1){window.scrollBy(0,acc);acc=0;}
-    autoScrollRAF=requestAnimationFrame(step);
+    const max=getMaxScroll();
+    const cur=window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if(max <= 0 || cur >= max - 2){autoScrolling=false;autoScrollRAF=null;return;}
+    acc += speed;
+    if(acc >= 1){
+      try{ window.scrollBy(0, Math.floor(acc)); }catch(_){}
+      acc = 0;
+    }
+    autoScrollRAF = requestAnimationFrame(step);
   }
-  autoScrollRAF=requestAnimationFrame(step);
+  autoScrollRAF = requestAnimationFrame(step);
 }
 ['wheel','touchstart','keydown','mousedown'].forEach(ev=>
   addEventListener(ev,stopAutoScroll,{passive:true}));
