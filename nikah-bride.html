@@ -75,6 +75,20 @@ img{max-width:100%;display:block}
 /* ===== LAYOUT ===== */
 main{opacity:0;transition:opacity 1s ease .3s}
 body.opened main{opacity:1}
+
+/* ===== SCROLL LOCK until opened ===== */
+body:not(.opened){overflow:hidden;height:100svh}
+/* ===== STICKY BOTTOM BAR (mobile) ===== */
+#botbar{position:fixed;left:0;right:0;bottom:0;z-index:640;display:none;align-items:stretch;justify-content:space-around;background:rgba(36,5,11,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(0,0,0,.22);padding:.35rem .2rem;padding-bottom:max(.35rem,env(safe-area-inset-bottom))}
+#botbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:.18rem;text-decoration:none;color:var(--champagne);padding:.4rem .1rem;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.82;transition:opacity .25s,color .25s}
+#botbar a .bi{font-size:1.15rem;line-height:1}
+#botbar a:active,#botbar a.on{opacity:1;color:var(--gold-light)}
+body.opened #botbar{display:none}
+@media(max-width:760px){
+  body.opened #botbar{display:flex}
+  body.opened main{padding-bottom:4.2rem}
+}
+
 section{padding:4.5rem 1.4rem;max-width:680px;margin:0 auto}
 .eyebrow{text-align:center;letter-spacing:.34em;text-transform:uppercase;font-size:.68rem;color:var(--gold-dark);margin-bottom:.9rem}
 h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-align:center;color:var(--maroon);margin-bottom:1.6rem}
@@ -244,6 +258,9 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 
 <button id="mbtn" aria-label="Muzik">♪</button>
 <audio id="bgm" src="music-nikah-bride.mp3" loop preload="none"></audio>
+
+
+<nav id="botbar" aria-label="Quick navigation"><a href="#lokasi"><span class="bi" aria-hidden="true">📍</span><span>Lokasi</span></a><a href="#aturcara"><span class="bi" aria-hidden="true">🗓</span><span>Aturcara</span></a><a href="#rsvp"><span class="bi" aria-hidden="true">✉</span><span>RSVP</span></a><a href="#salam"><span class="bi" aria-hidden="true">🎁</span><span>Salam</span></a><a href="#hubungi"><span class="bi" aria-hidden="true">✆</span><span>Hubungi</span></a></nav>
 
 <main>
 
@@ -417,6 +434,9 @@ document.getElementById('seal').addEventListener('click',()=>{
   env.classList.add('open');gate.classList.add('opening');
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},1500);
+  // slow guided auto-scroll to bottom, interruptible
+  setTimeout(startAutoScroll, 2200);
+
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
 
@@ -550,6 +570,41 @@ document.getElementById('ics').addEventListener('click',e=>{
     requestAnimationFrame(loop);
   })();
 })();
+
+/* guided auto-scroll */
+let autoScrollRAF=null,autoScrolling=false;
+function stopAutoScroll(){autoScrolling=false;if(autoScrollRAF)cancelAnimationFrame(autoScrollRAF);}
+function startAutoScroll(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  autoScrolling=true;
+  const speed=0.55; // px per frame (~33px/s)
+  let acc=0;
+  function step(){
+    if(!autoScrolling)return;
+    const max=document.documentElement.scrollHeight-innerHeight;
+    if(scrollY>=max-2){autoScrolling=false;return;}
+    acc+=speed;
+    if(acc>=1){window.scrollBy(0,acc);acc=0;}
+    autoScrollRAF=requestAnimationFrame(step);
+  }
+  autoScrollRAF=requestAnimationFrame(step);
+}
+['wheel','touchstart','keydown','mousedown'].forEach(ev=>
+  addEventListener(ev,stopAutoScroll,{passive:true}));
+
+/* bottom bar active section highlight */
+(function(){
+  const bar=document.getElementById('botbar');if(!bar)return;
+  const links=[...bar.querySelectorAll('a')];
+  const ids=links.map(a=>a.getAttribute('href'));
+  const secs=ids.map(h=>document.querySelector(h)).filter(Boolean);
+  addEventListener('scroll',()=>{
+    let cur=-1,mid=scrollY+innerHeight*0.4;
+    secs.forEach((sec,i)=>{if(sec.offsetTop<=mid)cur=i;});
+    links.forEach((a,i)=>a.classList.toggle('on',i===cur));
+  },{passive:true});
+})();
+
 </script>
 </body>
 </html>
