@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#4A0E1C">
-<meta property="og:title" content="Jemputan Majlis Akad Nikah — Mustafa Khan &amp; Nurin Natasha">
+<meta property="og:title" content="Jemputan Majlis Akad Nikah — Nurin Natasha &amp; Mustafa Khan">
 <meta property="og:description" content="Jumaat · 07 / Ogos / 2026 · Masjid Al-Muttaqin Dusun Tua, Hulu Langat">
 <meta property="og:image" content="https://wedding-invitations-i84.pages.dev/images/hero.jpg">
 <meta property="og:url" content="https://wedding-invitations-i84.pages.dev/nikah-bride">
-<title>Majlis Akad Nikah — Mustafa Khan &amp; Nurin Natasha · 07 Ogos 2026</title>
+<title>Majlis Akad Nikah — Nurin Natasha &amp; Mustafa Khan · 07 Ogos 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Amiri:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -94,7 +94,10 @@ h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-
 .amp{font-style:italic;color:var(--gold-light);font-size:.6em;display:block;margin:.2rem 0}
 .hero-date{letter-spacing:.22em;font-size:1rem;color:var(--gold-light);margin-top:1.1rem}
 .hero-venue{font-size:.85rem;letter-spacing:.12em;color:#D9BD8F;margin-top:.4rem;text-transform:uppercase}
-.scrolldown{margin-top:2.2rem;color:var(--gold);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;animation:pulse 2.6s infinite}
+.scrolldown{margin-top:2.2rem;color:var(--gold);display:flex;flex-direction:column;align-items:center;line-height:.55;animation:pulse 2.6s infinite}
+.scrolldown span{font-size:1.5rem}
+.scrolldown span:nth-child(2){opacity:.7}
+.scrolldown span:nth-child(3){opacity:.4}
 
 /* ===== COUNTDOWN ===== */
 #count{background:var(--ivory);max-width:none}
@@ -122,7 +125,7 @@ h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-
 .prog::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(var(--gold),transparent)}
 .prog li{position:relative;padding:0 0 1.4rem 1rem}
 .prog li::before{content:'';position:absolute;left:-1.6rem;top:6px;width:13px;height:13px;border-radius:50%;border:1px solid var(--gold);background:var(--champagne)}
-.prog time{font-family:'Cormorant Garamond',serif;color:var(--maroon);font-size:1.05rem;letter-spacing:.05em;display:block}
+.prog time{font-family:'Cormorant Garamond',serif;color:var(--maroon);font-size:1.05rem;letter-spacing:.05em;display:block;font-variant-numeric:tabular-nums;min-width:6ch}
 .prog span{font-size:.92rem;color:var(--text-mid)}
 
 /* ===== GALLERY ===== */
@@ -211,14 +214,14 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 
 <!-- GATE -->
 <div id="gate" class="arabesque">
-  <div class="gtitle">Walimatul Urus<br><span style="font-size:.7em;color:var(--gold)">Mustafa Khan &amp; Nurin Natasha</span></div>
+  <div class="gtitle">Walimatul Urus<br><span style="font-size:.7em;color:var(--gold)">Nurin Natasha &amp; Mustafa Khan</span></div>
   <div class="env" id="env">
     <div class="env-body"></div>
-    <div class="env-card"><span class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span class="n">M &amp; N</span><small>07 · OGOS · 2026</small></div>
+    <div class="env-card"><span class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span class="n">N &amp; M</span><small>07 · OGOS · 2026</small></div>
     <div class="env-fold l"></div>
     <div class="env-fold r"></div>
     <div class="env-pocket"></div>
-    <div class="env-mono">M ♥ N</div>
+    <div class="env-mono">N ♥ M</div>
     <div class="env-flap"></div>
     <button class="seal" id="seal" aria-label="Buka jemputan">Buka</button>
   </div>
@@ -227,7 +230,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 
 <!-- NAV -->
 <nav id="nav" aria-label="Navigasi">
-  <span class="mono">M ♥ N</span>
+  <span class="mono">N ♥ M</span>
   <button id="burger" aria-label="Menu">☰</button>
   <ul id="navlinks">
     <li><a href="#utama">Utama</a></li>
@@ -250,12 +253,12 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
     <div class="bismillah arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
     <p class="hosttxt">Dengan penuh kesyukuran ke hadrat Ilahi, kami</p>
     <p class="hostnames">MUHAMAD NASIR<br><span style="font-size:.75em;letter-spacing:.3em">&amp;</span><br>NOR ZURINA</p>
-    <p class="invite-line">dengan segala hormatnya menjemput<br>Dato' / Datin / Tuan / Puan / Encik / Cik sekeluarga<br>ke majlis akad nikah anakanda kami</p>
-    <h1 class="couple">Mustafa Khan<br><span style="font-size:.85em">Bin Nawaz Khan</span><span class="amp">dengan</span>Nurin Natasha<br><span style="font-size:.85em">Binti Muhamad Nasir</span></h1>
-    <p class="hero-date">JUMAAT · 07 / OGOS / 2026</p>
+    <p class="invite-line">dengan segala hormatnya menjemput<br>Dato' / Datin / Tuan / Puan / Encik / Cik sekeluarga<br>ke majlis akad nikah puteri kami</p>
+    <h1 class="couple">Nurin Natasha<span class="amp">dan</span>Mustafa Khan</h1>
+    <p class="hero-date">JUMAAT · 07 . OGOS . 2026</p>
     <p class="hero-venue">Masjid Al-Muttaqin Dusun Tua<br>Hulu Langat, Selangor</p>
   </div>
-  <div class="scrolldown">Tatal ke bawah</div>
+  <div class="scrolldown" aria-label="Tatal ke bawah"><span>⌄</span><span>⌄</span><span>⌄</span></div>
 </section>
 
 <!-- COUNTDOWN -->
@@ -274,13 +277,13 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
   <p class="eyebrow">Butiran Majlis</p>
   <h2>Akad Nikah</h2>
   <div class="card">
-    <div class="drow"><div class="ic">✦</div><div><h4>Tarikh</h4><p>Jumaat, 07 / Ogos / 2026</p></div></div>
+    <div class="drow"><div class="ic">✦</div><div><h4>Tarikh</h4><p>Jumaat, 07 . Ogos . 2026</p></div></div>
     <div class="drow"><div class="ic">◷</div><div><h4>Masa</h4><p>9.00 pagi hingga 10.30 pagi</p></div></div>
     <div class="drow"><div class="ic">⚲</div><div><h4>Tempat</h4><p>Masjid Al-Muttaqin Dusun Tua<br>KJ86 Masjid Al-Muttaqin<br>43100 Hulu Langat, Selangor</p></div></div>
-    <div class="drow"><div class="ic">❀</div><div><h4>Tema Pakaian</h4><p>Champagne · tiada fesyen khusus, kehadiran anda yang utama</p><div class="attire"><span class="swatch" style="background:#F2DDB8"></span><span style="font-size:.85rem;color:var(--text-mid)">Champagne</span></div><div class="pills"><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+kurung+champagne">Wanita · Baju Kurung</a><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+melayu+champagne">Lelaki · Baju Melayu</a></div></div></div>
+    <div class="drow"><div class="ic">❀</div><div><h4>Tema Pakaian</h4><p>Tema warna Champagne</p><div class="attire"><span class="swatch" style="background:#F2DDB8"></span><span style="font-size:.85rem;color:var(--text-mid)">Champagne</span></div><div class="pills"><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+kurung+champagne">Wanita · Baju Kurung</a><a class="pill" target="_blank" rel="noopener" href="https://www.google.com/search?udm=2&amp;q=baju+melayu+champagne">Lelaki · Baju Melayu</a></div></div></div>
   </div>
   <div class="mbtns">
-    <a class="obtn" id="gcal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis%20Akad%20Nikah%20Mustafa%20Khan%20%26%20Nurin%20Natasha&dates=20260807T010000Z/20260807T023000Z&details=Majlis%20Akad%20Nikah%20Mustafa%20Khan%20%26%20Nurin%20Natasha&location=Masjid%20Al-Muttaqin%20Dusun%20Tua%2C%2043100%20Hulu%20Langat%2C%20Selangor">Google Calendar</a>
+    <a class="obtn" id="gcal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Majlis%20Akad%20Nikah%20Nurin%20Natasha%20%26%20Mustafa%20Khan&dates=20260807T010000Z/20260807T023000Z&details=Majlis%20Akad%20Nikah%20Nurin%20Natasha%20%26%20Mustafa%20Khan&location=Masjid%20Al-Muttaqin%20Dusun%20Tua%2C%2043100%20Hulu%20Langat%2C%20Selangor">Google Calendar</a>
     <a class="obtn" href="#" id="ics">Muat Turun Peringatan (.ics)</a>
   </div>
   <p class="note">Fail .ics disertakan peringatan automatik 1 bulan dan 2 minggu sebelum majlis.</p>
@@ -292,9 +295,9 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
   <p class="eyebrow">Aturcara Majlis</p>
   <h2>Susunan Acara</h2>
   <ul class="prog">
-    <li><time>8.45 pagi</time><span>Ketibaan Tetamu</span></li>
-    <li><time>9.00 pagi</time><span>Majlis Akad Nikah</span></li>
-    <li><time>9.45 pagi</time><span>Bacaan Doa &amp; Sesi Bersalaman</span></li>
+    <li><time>&thinsp;8.45 pagi</time><span>Ketibaan Tetamu</span></li>
+    <li><time>&thinsp;9.00 pagi</time><span>Majlis Akad Nikah</span></li>
+    <li><time>&thinsp;9.45 pagi</time><span>Bacaan Doa &amp; Sesi Bersalaman</span></li>
     <li><time>10.15 pagi</time><span>Sesi Bergambar</span></li>
     <li><time>10.30 pagi</time><span>Majlis Bersurai</span></li>
   </ul>
@@ -369,7 +372,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
   <h2>Sebarang Pertanyaan</h2>
   <div class="cgrid">
     <div class="crow"><div class="nm">Muhamad Nasir<small>019-2712260</small></div><div class="cbtns"><a href="tel:0192712260" aria-label="Telefon Muhamad Nasir">✆</a><a href="https://wa.me/60192712260" target="_blank" rel="noopener" aria-label="WhatsApp Muhamad Nasir">✉</a></div></div>
-    <div class="crow"><div class="nm">Nor Zurina<small>017-2774079</small></div><div class="cbtns"><a href="tel:0172774079" aria-label="Telefon Nor Zurina">✆</a><a href="https://wa.me/60172774079" target="_blank" rel="noopener" aria-label="WhatsApp Nor Zurina">✉</a></div></div>
+    <div class="crow"><div class="nm">Nor Zurina<small>017-2774039</small></div><div class="cbtns"><a href="tel:0172774039" aria-label="Telefon Nor Zurina">✆</a><a href="https://wa.me/60172774039" target="_blank" rel="noopener" aria-label="WhatsApp Nor Zurina">✉</a></div></div>
     <div class="crow"><div class="nm">Nurin Liyana<small>019-4355394</small></div><div class="cbtns"><a href="tel:0194355394" aria-label="Telefon Nurin Liyana">✆</a><a href="https://wa.me/60194355394" target="_blank" rel="noopener" aria-label="WhatsApp Nurin Liyana">✉</a></div></div>
   </div>
 </section>
@@ -397,7 +400,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 </section>
 
 </main>
-<footer>Mustafa Khan ♥ Nurin Natasha · 2026</footer>
+<footer>Nurin Natasha ♥ Mustafa Khan · 2026</footer>
 
 <script>
 const CONFIG={
@@ -518,7 +521,7 @@ document.getElementById('ics').addEventListener('click',e=>{
   e.preventDefault();
   const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MKNN//Wedding//MS','BEGIN:VEVENT',
   'UID:nikah-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260807T010000Z','DTEND:20260807T023000Z',
-  'SUMMARY:Majlis Akad Nikah Mustafa Khan & Nurin Natasha',
+  'SUMMARY:Majlis Akad Nikah Nurin Natasha & Mustafa Khan',
   'LOCATION:Masjid Al-Muttaqin Dusun Tua\\, KJ86\\, 43100 Hulu Langat\\, Selangor',
   'DESCRIPTION:Jumaat 07/Ogos/2026\\, 9.00 pagi - 10.30 pagi',
   'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Peringatan 1 bulan','TRIGGER:-P30D','END:VALARM',
