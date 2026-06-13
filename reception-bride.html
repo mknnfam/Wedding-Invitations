@@ -467,7 +467,6 @@ document.getElementById('opengate').addEventListener('click',()=>{
   gate.classList.add('opening');
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},900);
-  setTimeout(()=>{ if(typeof window.jumpNext==='function') window.jumpNext(); }, 1800);
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
 
@@ -610,61 +609,6 @@ document.getElementById('ics').addEventListener('click',e=>{
     secs.forEach((sec,i)=>{if(sec.offsetTop<=mid)cur=i;});
     links.forEach((a,i)=>a.classList.toggle('on',i===cur));
   },{passive:true});
-})();
-
-/* guided auto-scroll using sections */
-(function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const root = document.documentElement;
-  const SECTIONS = Array.from(document.querySelectorAll('main section, #home, #count, #details, #programme, #gallery, #rsvp, #gift, #contact, #location, #closing')).filter(Boolean);
-  let idx = 0, raf = null, busy = false;
-  function stop(){ busy = false; if(raf){ cancelAnimationFrame(raf); raf = null; } }
-  function currentIndex(){
-    const y = window.scrollY || root.scrollTop || 0;
-    let cur = 0;
-    SECTIONS.forEach((sec, i) => {
-      if (y >= (sec.offsetTop - innerHeight * 0.45)) cur = i;
-    });
-    return cur;
-  }
-  function gotoSection(i){
-    if (i < 0 || i >= SECTIONS.length) return;
-    stop();
-    busy = true;
-    idx = i;
-    SECTIONS[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-  function step(){
-    if (!busy) return;
-    const target = SECTIONS[idx];
-    if (!target){ stop(); return; }
-    const dist = Math.abs((window.scrollY || 0) + innerHeight * 0.3 - (target.offsetTop + target.offsetHeight * 0.4));
-    if (dist < 4){ stop(); return; }
-    raf = requestAnimationFrame(step);
-  }
-  window.jumpNext = () => gotoSection(currentIndex() + 1);
-  window.jumpPrev = () => { stop(); busy = true; idx = currentIndex(); if (idx > 0) idx--; gotoSection(idx); };
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowDown') { e.preventDefault(); window.jumpNext(); }
-    if (e.key === 'ArrowUp')   { e.preventDefault(); window.jumpPrev(); }
-  });
-  let lastTouch = null;
-  document.addEventListener('touchstart', e => {
-    lastTouch = e.touches[0].clientY;
-  }, {passive: true});
-  document.addEventListener('touchend', e => {
-    if (!lastTouch) return;
-    const dy = (e.changedTouches[0]?.clientY || lastTouch) - lastTouch;
-    if (Math.abs(dy) > 14 && Math.abs(dy) < 160){ e.preventDefault(); dy < 0 ? window.jumpNext() : window.jumpPrev(); }
-    lastTouch = lastTouch; // keep latest
-  }, {passive: false});
-  if ('onwheel' in window){
-    window.addEventListener('wheel', e => {
-      e.preventDefault();
-      if (Math.abs(e.deltaY) < 10) return;
-      e.deltaY > 0 ? window.jumpNext() : window.jumpPrev();
-    }, {passive: false});
-  }
 })();
 </script>
 </body>
