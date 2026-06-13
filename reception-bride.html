@@ -465,7 +465,7 @@ document.getElementById('opengate').addEventListener('click',()=>{
   gate.classList.add('opening');
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},900);
-  setTimeout(startAutoScroll, 2600);
+  setTimeout(startAutoScroll, 1500);
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
 
@@ -611,15 +611,22 @@ function getMaxScroll(){
 }
 function startAutoScroll(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  stopAutoScroll();
+  if(autoScrolling) return;
   autoScrolling=true;
   const speed=0.55;
-  let acc=0;
+  let acc=0, waited=0;
   function step(){
-    if(!autoScrolling)return;
+    if(!autoScrolling){autoScrollRAF=null;return;}
     const max=getMaxScroll();
     const cur=window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    if(max <= 0 || cur >= max - 2){autoScrolling=false;autoScrollRAF=null;return;}
+    if(max <= 0 && waited < 8){
+      waited++;
+      autoScrollRAF = requestAnimationFrame(step);
+      return;
+    }
+    if(max <= 0 || cur >= max - 2){
+      autoScrolling=false;autoScrollRAF=null;return;
+    }
     acc += speed;
     if(acc >= 1){
       try{ window.scrollBy(0, Math.floor(acc)); }catch(_){}
