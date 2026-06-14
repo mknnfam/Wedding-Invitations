@@ -549,18 +549,20 @@ document.getElementById('ics').addEventListener('click',e=>{
 
 /* guided auto-scroll (mobile-safe) */
 let asRAF=null,asActive=false,asPos=0;
-function stopAutoScroll(){asActive=false;if(asRAF)cancelAnimationFrame(asRAF);}
+function asRestore(){document.documentElement.style.scrollBehavior='';}
+function stopAutoScroll(){asActive=false;if(asRAF)cancelAnimationFrame(asRAF);asRestore();}
 function startAutoScroll(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   if(asActive)return;
   asActive=true;
+  document.documentElement.style.scrollBehavior='auto';
   asPos=window.scrollY||document.documentElement.scrollTop||0;
-  const speed=1.1;
+  const speed=1.0;
   function step(){
     if(!asActive)return;
     const max=document.documentElement.scrollHeight-window.innerHeight;
     asPos+=speed;
-    if(asPos>=max){window.scrollTo(0,max);asActive=false;return;}
+    if(asPos>=max){window.scrollTo(0,max);asActive=false;asRestore();return;}
     window.scrollTo(0,asPos);
     asRAF=requestAnimationFrame(step);
   }
