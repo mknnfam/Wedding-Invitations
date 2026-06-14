@@ -129,7 +129,7 @@ h2{font-family:'Cinzel',serif;font-size:1.7rem;text-align:center;color:var(--gol
 .cd b{display:block;font-family:'Cinzel',serif;font-size:1.8rem;color:var(--gold-light)}
 .cd span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-soft)}
 
-/* ===== cards ===== */
+/* cards */
 .card{background:linear-gradient(160deg,var(--emerald-mid),var(--emerald));border:1px solid var(--line);padding:1.8rem 1.5rem;margin-bottom:1.2rem;position:relative}
 .card::before{content:'';position:absolute;inset:6px;border:1px solid rgba(212,175,55,.16);pointer-events:none}
 .drow{display:flex;gap:1rem;align-items:flex-start;padding:.85rem 0;border-bottom:1px dashed var(--line);position:relative}
@@ -528,114 +528,6 @@ if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
   },4500);
 }
 
-const lh=document.getElementById('lhadir'),lt=document.getElementById('ltidak'),paxwrap=document.getElementById('paxwrap'),pval=document.getElementById('pval');
-let pax=1,att='';
-function setAtt(v){
-  att=v; lh.classList.toggle('on',v==='Hadir'); lt.classList.toggle('on',v==='Tidak Hadir');
-  paxwrap.classList.toggle('off',v!=='Hadir');
-}
-lh.addEventListener('click',()=>setAtt('Hadir'));
-lt.addEventListener('click',()=>setAtt('Tidak Hadir'));
-document.getElementById('pmin').onclick=()=>{if(pax>1)pval.textContent=--pax};
-document.getElementById('pplus').onclick=()=>{if(pax<10)pval.textContent=++pax};
-const fph=document.getElementById('fphone');
-fph.addEventListener('input',()=>{fph.value=fph.value.replace(/[^\d+\s-]/g,'')});
-document.getElementById('rform').addEventListener('submit',async e=>{
-  e.preventDefault();
-  const name=document.getElementById('fname').value.trim(),
-        phone=document.getElementById('fphone').value.trim(),
-        wishes=document.getElementById('fwish').value.trim(),
-        err=document.getElementById('ferr'),btn=document.getElementById('fsub');
-  err.style.display='none';
-  const pclean=phone.replace(/[\s-]/g,'');
-  if(!name||!/^\+?\d{9,12}$/.test(pclean)||!att){
-    err.textContent='Please complete your name, a valid phone number and your attendance choice.';
-    err.style.display='block';return;
-  }
-  btn.disabled=true;btn.textContent='Sending…';
-  try{
-    await fetch(CONFIG.URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
-      body:JSON.stringify({name,phone,side:CONFIG.SIDE,pax:att==='Hadir'?pax:0,event:CONFIG.EVENT,attendance:att,wishes})});
-    document.getElementById('okname').textContent=name.split(' ')[0];
-    document.getElementById('rform').style.display='none';
-    document.getElementById('fok').style.display='block';
-  }catch(_){
-    err.textContent='Something went wrong. Please try again.';
-    err.style.display='block';btn.disabled=false;btn.textContent='Send RSVP';
-  }
-});
-
-document.getElementById('ics').addEventListener('click',e=>{
-  e.preventDefault();
-  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//MKNN//Wedding//EN','BEGIN:VEVENT',
-  'UID:reception-bride-mknn-2026@mknnfam','DTSTAMP:20260101T000000Z','DTSTART:20260807T100000Z','DTEND:20260807T140000Z',
-  'SUMMARY:Wedding Reception of Nurin Natasha & Mustafa Khan',
-  'LOCATION:Camelia Event Space @ Fiesta Mall\\, Axis Pandan',
-  'DESCRIPTION:Friday 07.August.2026\\, 6.00 PM - 10.00 PM',
-  'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder 1 month before','TRIGGER:-P30D','END:VALARM',
-  'BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:Reminder 2 weeks before','TRIGGER:-P14D','END:VALARM',
-  'END:VEVENT','END:VCALENDAR'].join('\r\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
-  a.download='reception-mustafa-nurin.ics';a.click();URL.revokeObjectURL(a.href);
-});
-
-/* gold dust */
-(function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const c=document.getElementById('pcanvas'),x=c.getContext('2d');let W,H,P=[];
-  function rs(){W=c.width=innerWidth;H=c.height=innerHeight}
-  rs();addEventListener('resize',rs);
-  for(let i=0;i<44;i++)P.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.5+.4,s:Math.random()*.3+.06,o:Math.random()*.5+.15,w:Math.random()*6.28});
-  (function loop(){
-    x.clearRect(0,0,W,H);
-    P.forEach(p=>{
-      p.y-=p.s;p.w+=.01;p.x+=Math.sin(p.w)*.2;
-      if(p.y<-5){p.y=H+5;p.x=Math.random()*W}
-      x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);
-      x.fillStyle=`rgba(240,218,138,${p.o})`;x.fill();
-    });
-    requestAnimationFrame(loop);
-  })();
-})();
-
-/* bottom bar active section highlight */
-(function(){
-  const bar=document.getElementById('botbar');if(!bar)return;
-  const links=[...bar.querySelectorAll('a')];
-  const ids=links.map(a=>a.getAttribute('href'));
-  const secs=ids.map(h=>document.querySelector(h)).filter(Boolean);
-  addEventListener('scroll',()=>{
-    let cur=-1,mid=scrollY+innerHeight*0.4;
-    secs.forEach((sec,i)=>{if(sec.offsetTop<=mid)cur=i;});
-    links.forEach((a,i)=>a.classList.toggle('on',i===cur));
-  },{passive:true});
-})();
-
-/* guided auto-scroll */
-(function(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let raf = null, active = false;
-  function stop(){ active = false; if(raf){ cancelAnimationFrame(raf); raf = null; } }
-  function scrollStep(){
-    if(!active) return;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const cur = window.scrollY || 0;
-    if(cur >= max - 2){ stop(); return; }
-    const speed = 0.45;
-    window.scrollBy(0, speed);
-    raf = requestAnimationFrame(scrollStep);
-  }
-  window.startSmoothScroll = function(){
-    if(active) return;
-    active = true;
-    raf = requestAnimationFrame(scrollStep);
-  };
-  window.stopSmoothScroll = stop;
-  ['wheel','touchstart','keydown','mousedown'].forEach(ev=>
-    addEventListener(ev, stop, {passive: true})
-  );
-})();
 </script>
 </body>
 </html>
