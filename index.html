@@ -24,6 +24,8 @@
 html{scroll-behavior:smooth}
 body{font-family:'EB Garamond',Georgia,serif;background:var(--cream);color:var(--text);overflow-x:hidden}
 img{max-width:100%;display:block}
+.amp-stack{display:block;margin:.12em 0}
+
 .serif-d{font-family:'Cormorant Garamond',serif}
 .arabic{font-family:'Amiri',serif}
 
@@ -124,7 +126,7 @@ h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.9rem;text-
 .drow .ic{flex:0 0 34px;height:34px;border-radius:50%;border:1px solid var(--gold);color:var(--gold-dark);display:flex;align-items:center;justify-content:center;font-size:.95rem}
 .drow h4{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--maroon);letter-spacing:.06em}
 .drow p{font-size:.92rem;color:var(--text-mid);line-height:1.6}
-.attire{display:flex;align-items:center;gap:.8rem;justify-content:center;margin-top:.4rem}
+.attire{display:flex;align-items:center;gap:.6rem;justify-content:flex-start;margin-top:.6rem}
 .swatch{width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);background:#FFF3B8}
 
 .pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.7rem}
@@ -226,7 +228,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
 
 <!-- GATE -->
 <div id="gate" class="arabesque">
-  <div class="gtitle">Walimatul Urus<br><span style="font-size:.7em;color:var(--gold)">Mustafa Khan &amp; Nurin Natasha</span></div>
+  <div class="gtitle">Walimatul Urus<br><span style="font-size:.7em;color:var(--gold)">Mustafa Khan<span class="amp-stack">&amp;</span>Nurin Natasha</span></div>
   <div class="env" id="env">
     <div class="env-body"></div>
     <div class="env-card"><span class="arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span><span class="n">M &amp; N</span><small>07 · OGOS · 2026</small></div>
@@ -314,7 +316,7 @@ footer{background:var(--maroon-deep);color:#B68F58;text-align:center;font-size:.
     <li><time>9.00 pagi</time><span>Majlis Akad Nikah</span></li>
     <li><time>9.45 pagi</time><span>Bacaan Doa &amp; Sesi Bersalaman</span></li>
     <li><time>10.15 pagi</time><span>Sesi Bergambar</span></li>
-    <li><time>10.30 pagi</time><span>Majlis Bersurai</span></li>
+    <li><time>10.30 pagi</time><span>Jamuan Ringan &amp; Majlis Bersurai</span></li>
   </ul>
   </div>
 </section>
@@ -433,7 +435,7 @@ document.getElementById('seal').addEventListener('click',()=>{
   bgm.play().then(()=>mbtn.classList.add('playing')).catch(()=>{});
   setTimeout(()=>{gate.classList.add('hide');document.body.classList.add('opened');document.getElementById('nav').classList.add('show');},1500);
   // slow guided auto-scroll to bottom, interruptible
-  setTimeout(startAutoScroll, 2200);
+  setTimeout(startAutoScroll,1800);
 
 });
 mbtn.addEventListener('click',()=>{ if(bgm.paused){bgm.play();mbtn.classList.add('playing');} else {bgm.pause();mbtn.classList.remove('playing');} });
@@ -571,25 +573,26 @@ document.getElementById('ics').addEventListener('click',e=>{
   })();
 })();
 
-/* guided auto-scroll */
-let autoScrollRAF=null,autoScrolling=false;
-function stopAutoScroll(){autoScrolling=false;if(autoScrollRAF)cancelAnimationFrame(autoScrollRAF);}
+/* guided auto-scroll (mobile-safe) */
+let asRAF=null,asActive=false,asPos=0;
+function stopAutoScroll(){asActive=false;if(asRAF)cancelAnimationFrame(asRAF);}
 function startAutoScroll(){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  autoScrolling=true;
-  const speed=0.55; // px per frame (~33px/s)
-  let acc=0;
+  if(asActive)return;
+  asActive=true;
+  asPos=window.scrollY||document.documentElement.scrollTop||0;
+  const speed=1.1;
   function step(){
-    if(!autoScrolling)return;
-    const max=document.documentElement.scrollHeight-innerHeight;
-    if(scrollY>=max-2){autoScrolling=false;return;}
-    acc+=speed;
-    if(acc>=1){window.scrollBy(0,acc);acc=0;}
-    autoScrollRAF=requestAnimationFrame(step);
+    if(!asActive)return;
+    const max=document.documentElement.scrollHeight-window.innerHeight;
+    asPos+=speed;
+    if(asPos>=max){window.scrollTo(0,max);asActive=false;return;}
+    window.scrollTo(0,asPos);
+    asRAF=requestAnimationFrame(step);
   }
-  autoScrollRAF=requestAnimationFrame(step);
+  asRAF=requestAnimationFrame(step);
 }
-['wheel','touchstart','keydown','mousedown'].forEach(ev=>
+['wheel','touchmove','keydown','mousedown'].forEach(ev=>
   addEventListener(ev,stopAutoScroll,{passive:true}));
 
 /* bottom bar active section highlight */
